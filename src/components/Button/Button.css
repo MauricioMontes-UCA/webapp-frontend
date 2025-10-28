@@ -1,0 +1,209 @@
+/* ============================================
+   VARIABLES DE COLORES GLOBALES
+   ============================================ */
+:root {
+  --color-primary: #D9C179;    /* Dorado claro */
+  --color-secondary: #D9CBA3;  /* Beige */
+  --color-accent: #736140;     /* Marrón oscuro */
+  --color-neutral: #c4891a;    /* Dorado medio */
+  --color-background: #F2EBDC; /* Crema */
+  --color-white: #ffffff;      /* Blanco puro */
+  --color-text-dark: #3a3a3a;  /* Gris oscuro para texto */
+}
+
+/* ============================================
+   ESTILOS BASE DEL BOTÓN
+   ============================================ */
+.btn {
+  /* Layout y posicionamiento */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  
+  /* Bordes y forma */
+  border: none;
+  border-radius: 12px;
+  
+  /* Tipografía */
+  font-family: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  
+  /* Interacciones */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* ============================================
+   TAMAÑOS DE BOTONES
+   ============================================ */
+
+/* Botón pequeño - Para acciones secundarias */
+.btn--small {
+  padding: 10px 20px;
+  font-size: 14px;
+  line-height: 20px;
+  min-height: 40px;
+}
+
+/* Botón mediano - Tamaño estándar por defecto */
+.btn--medium {
+  padding: 14px 28px;
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 52px;
+}
+
+/* Botón grande - Para CTAs principales */
+.btn--large {
+  padding: 18px 36px;
+  font-size: 18px;
+  line-height: 28px;
+  min-height: 64px;
+}
+
+/* ============================================
+   VARIANTES DE BOTONES
+   ============================================ */
+
+/* BOTÓN PRIMARIO - Para acciones principales (CTAs) */
+.btn--primary {
+  /* Estado inicial: Fondo tawny con texto blanco */
+  background: #cd853f;
+  color: #ffffff;
+  border: 2px solid #cd853f;
+  box-shadow: 0 6px 20px rgba(205, 133, 63, 0.3);
+}
+
+/* Efecto hover: Se invierte a fondo blanco con texto tawny */
+.btn--primary:hover {
+  transform: translateY(-3px);           /* Elevación sutil */
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+  background: #ffffff;
+  color: #cd853f;
+  border-color: #cd853f;
+}
+
+/* Estado activo: Mantiene el estilo hover */
+.btn--primary:active {
+  transform: translateY(-1px);           /* Menos elevación que hover */
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  background: #ffffff;
+  color: #cd853f;
+}
+
+/* BOTÓN SECUNDARIO - Para acciones complementarias */
+.btn--secondary {
+  /* Estado inicial: Fondo blanco con texto oscuro */
+  background: #ffffff;
+  color: #736140;
+  border: 2px solid #D9CBA3;
+  box-shadow: 0 4px 15px rgba(166, 151, 124, 0.15);
+}
+
+/* Efecto hover: Se transforma a fondo tawny */
+.btn--secondary:hover {
+  background: #cd853f;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(205, 133, 63, 0.25);
+  border-color: #cd853f;
+}
+
+/* Estado activo: Mantiene el estilo hover */
+.btn--secondary:active {
+  transform: translateY(-1px);
+  background: #cd853f;
+  color: #ffffff;
+  border-color: #cd853f;
+}
+
+/* BOTÓN OUTLINE - Para acciones en tarjetas/features */
+.btn--outline {
+  /* Estado inicial: Fondo tawny con texto blanco */
+  background: #cd853f;
+  color: #ffffff;
+  border: 2px solid #cd853f;
+}
+
+/* Efecto hover: Se invierte a fondo blanco con texto tawny */
+.btn--outline:hover {
+  background: #ffffff;
+  border-color: #cd853f;
+  color: #cd853f;
+  transform: translateY(-2px);
+}
+
+/* Estado activo: Mantiene el estilo hover */
+.btn--outline:active {
+  transform: translateY(0);
+  background: #ffffff;
+  border-color: #cd853f;
+  color: #cd853f;
+}
+
+/* ============================================
+   ESTADOS ESPECIALES
+   ============================================ */
+
+/* ESTADO DESHABILITADO - Para botones inactivos */
+.btn--disabled {
+  opacity: 0.6;                          /* Reduce opacidad para indicar inactividad */
+  cursor: not-allowed;                   /* Cursor que indica no disponible */
+  transform: none !important;            /* Previene animaciones */
+  box-shadow: none !important;           /* Remueve sombras */
+}
+
+/* Previene efectos hover en botones deshabilitados */
+.btn--disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================================
+   DISEÑO RESPONSIVO
+   ============================================ */
+
+/* TABLETS - Pantallas medianas (768px y menores) */
+@media (max-width: 768px) {
+  /* Reduce tamaños para mejor adaptación en tablets */
+  .btn--large {
+    padding: 16px 32px;
+    font-size: 16px;
+    min-height: 56px;
+  }
+  
+  .btn--medium {
+    padding: 12px 24px;
+    font-size: 15px;
+    min-height: 48px;
+  }
+  
+  .btn--small {
+    padding: 8px 16px;
+    font-size: 13px;
+    min-height: 36px;
+  }
+}
+
+/* MÓVILES - Pantallas pequeñas (480px y menores) */
+@media (max-width: 480px) {
+  /* Ajustes adicionales para dispositivos móviles */
+  .btn--large {
+    padding: 14px 28px;
+    font-size: 15px;
+    min-height: 52px;
+  }
+  
+  .btn--medium {
+    padding: 10px 20px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  /* Nota: btn--small mantiene su tamaño de tablet en móviles */
+}

@@ -1,0 +1,206 @@
+/* ============================================
+   VARIABLES DE COLORES LOCALES
+   ============================================ */
+:root {
+  --color-primary: #D9C179;    /* Dorado claro */
+  --color-secondary: #D9CBA3;  /* Beige */
+  --color-accent: #736140;     /* Marrón oscuro */
+  --color-neutral: #A6977C;    /* Gris cálido */
+  --color-background: #F2EBDC; /* Crema */
+  --color-white: #ffffff;      /* Blanco puro */
+  --color-text-dark: #3a3a3a;  /* Texto principal */
+  --color-text-light: #666666; /* Texto secundario */
+}
+
+/* ============================================
+   CONTENEDOR PRINCIPAL DE LA TARJETA
+   ============================================ */
+.feature-card {
+  /* Apariencia visual */
+  background: var(--color-white);
+  border-radius: 20px;
+  border: 1px solid rgba(217, 203, 163, 0.3);
+  box-shadow: 0 10px 35px rgba(115, 97, 64, 0.12);
+  
+  /* Layout y espaciado */
+  padding: 32px 24px;
+  text-align: center;
+  height: 100%;                    /* Ocupa toda la altura disponible */
+  display: flex;
+  flex-direction: column;
+  
+  /* Efectos y animaciones */
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Línea decorativa superior */
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  /* Degradado de dorado claro a marrón */
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+}
+
+/* Efecto hover: Elevación y realce de sombras */
+.feature-card:hover {
+  transform: translateY(-10px);                      /* Elevación sutil */
+  box-shadow: 0 20px 50px rgba(115, 97, 64, 0.18);  /* Sombra más intensa */
+  border-color: rgba(217, 193, 121, 0.5);           /* Borde más visible */
+}
+
+/* ============================================
+   ELEMENTOS INTERNOS DE LA TARJETA
+   ============================================ */
+
+/* Contenedor del icono */
+.feature-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 24px;
+  border-radius: 18px;              /* Bordes redondeados suaves */
+  font-size: 32px;                  /* Tamaño base para iconos de texto */
+  transition: transform 0.3s ease;  /* Animación suave para escalado */
+}
+
+/* Efecto hover en el icono: Escalado sutil */
+.feature-card:hover .feature-card__icon {
+  transform: scale(1.1);
+}
+
+/* Estilos para iconos SVG */
+.feature-card__icon svg {
+  width: 36px;
+  height: 36px;
+  fill: var(--color-primary);       /* Color dorado inicial */
+  transition: fill 0.3s ease;       /* Transición suave de color */
+}
+
+/* Cambio de color del SVG en hover */
+.feature-card:hover .feature-card__icon svg {
+  fill: var(--color-accent);        /* Cambia a marrón en hover */
+}
+
+/* Título de la característica */
+.feature-card__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-text-dark);
+  margin: 0 0 16px 0;
+  line-height: 1.3;
+}
+
+/* Descripción explicativa */
+.feature-card__description {
+  font-size: 16px;
+  color: var(--color-text-light);   /* Texto más suave que el título */
+  line-height: 1.6;                 /* Espaciado cómodo para lectura */
+  margin: 0 0 28px 0;
+  flex-grow: 1;                     /* Ocupa espacio disponible para alinear acciones */
+}
+
+/* Contenedor de la acción (botón) */
+.feature-card__action {
+  margin-top: auto;                 /* Se empuja al final de la tarjeta */
+}
+
+/* ============================================
+   DISEÑO RESPONSIVO
+   ============================================ */
+
+/* TABLETS Y PORTÁTILES - Pantallas grandes (1024px y menores) */
+@media (max-width: 1024px) {
+  .feature-card {
+    padding: 28px 20px;             /* Reduce padding para mejor aprovechamiento */
+  }
+  
+  /* Ajusta tamaño del icono */
+  .feature-card__icon {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+  }
+  
+  .feature-card__icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  /* Reduce tamaño del título */
+  .feature-card__title {
+    font-size: 22px;
+  }
+}
+
+/* TABLETS - Pantallas medianas (768px y menores) */
+@media (max-width: 768px) {
+  .feature-card {
+    padding: 24px 20px;
+    border-radius: 16px;            /* Bordes menos redondeados */
+  }
+  
+  /* Ajustes progresivos del icono para tablets */
+  .feature-card__icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 20px;
+    border-radius: 16px;
+    font-size: 26px;
+  }
+  
+  .feature-card__icon svg {
+    width: 30px;
+    height: 30px;
+  }
+  
+  /* Ajustes de tipografía para tablets */
+  .feature-card__title {
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  
+  .feature-card__description {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+}
+
+/* MÓVILES - Pantallas pequeñas (480px y menores) */
+@media (max-width: 480px) {
+  .feature-card {
+    padding: 20px 16px;             /* Padding mínimo para móviles */
+  }
+  
+  /* Icono optimizado para móviles */
+  .feature-card__icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 18px;
+    font-size: 24px;
+  }
+  
+  .feature-card__icon svg {
+    width: 28px;
+    height: 28px;
+  }
+  
+  /* Tipografía compacta para móviles */
+  .feature-card__title {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+  
+  .feature-card__description {
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.5;               /* Línea más compacta */
+  }
+}
