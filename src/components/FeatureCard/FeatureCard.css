@@ -1,26 +1,13 @@
-/* ============================================
-   VARIABLES DE COLORES LOCALES
-   ============================================ */
-:root {
-  --color-primary: #D9C179;    /* Dorado claro */
-  --color-secondary: #D9CBA3;  /* Beige */
-  --color-accent: #736140;     /* Marrón oscuro */
-  --color-neutral: #A6977C;    /* Gris cálido */
-  --color-background: #F2EBDC; /* Crema */
-  --color-white: #ffffff;      /* Blanco puro */
-  --color-text-dark: #3a3a3a;  /* Texto principal */
-  --color-text-light: #666666; /* Texto secundario */
-}
+/* IMPORTACIÓN DEL SISTEMA DE COLORES CENTRALIZADO */
+@import '../../styles/colors.css';
 
-/* ============================================
-   CONTENEDOR PRINCIPAL DE LA TARJETA
-   ============================================ */
+/* CONTENEDOR PRINCIPAL DE LA TARJETA */
 .feature-card {
   /* Apariencia visual */
   background: var(--color-white);
   border-radius: 20px;
-  border: 1px solid rgba(217, 203, 163, 0.3);
-  box-shadow: 0 10px 35px rgba(115, 97, 64, 0.12);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-card);
   
   /* Layout y espaciado */
   padding: 32px 24px;
@@ -44,19 +31,17 @@
   right: 0;
   height: 4px;
   /* Degradado de dorado claro a marrón */
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: var(--gradient-primary);
 }
 
 /* Efecto hover: Elevación y realce de sombras */
 .feature-card:hover {
   transform: translateY(-10px);                      /* Elevación sutil */
-  box-shadow: 0 20px 50px rgba(115, 97, 64, 0.18);  /* Sombra más intensa */
-  border-color: rgba(217, 193, 121, 0.5);           /* Borde más visible */
+  box-shadow: var(--shadow-card-hover);              /* Sombra más intensa */
+  border-color: var(--color-border-accent);          /* Borde más visible */
 }
 
-/* ============================================
-   ELEMENTOS INTERNOS DE LA TARJETA
-   ============================================ */
+/* ELEMENTOS INTERNOS DE LA TARJETA */
 
 /* Contenedor del icono */
 .feature-card__icon {
@@ -86,7 +71,7 @@
 
 /* Cambio de color del SVG en hover */
 .feature-card:hover .feature-card__icon svg {
-  fill: var(--color-accent);        /* Cambia a marrón en hover */
+  fill: var(--color-neutral-dark);  /* Cambia a marrón en hover */
 }
 
 /* Título de la característica */
@@ -101,10 +86,10 @@
 /* Descripción explicativa */
 .feature-card__description {
   font-size: 16px;
-  color: var(--color-text-light);   /* Texto más suave que el título */
-  line-height: 1.6;                 /* Espaciado cómodo para lectura */
+  color: var(--color-text-secondary);   /* Texto más suave que el título */
+  line-height: 1.6;                     /* Espaciado cómodo para lectura */
   margin: 0 0 28px 0;
-  flex-grow: 1;                     /* Ocupa espacio disponible para alinear acciones */
+  flex-grow: 1;                         /* Ocupa espacio disponible para alinear acciones */
 }
 
 /* Contenedor de la acción (botón) */
@@ -112,9 +97,7 @@
   margin-top: auto;                 /* Se empuja al final de la tarjeta */
 }
 
-/* ============================================
-   DISEÑO RESPONSIVO
-   ============================================ */
+/* DISEÑO RESPONSIVO */
 
 /* TABLETS Y PORTÁTILES - Pantallas grandes (1024px y menores) */
 @media (max-width: 1024px) {

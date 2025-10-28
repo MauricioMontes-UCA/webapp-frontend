@@ -1,19 +1,7 @@
-/* ============================================
-   VARIABLES DE COLORES GLOBALES
-   ============================================ */
-:root {
-  --color-primary: #D9C179;    /* Dorado claro */
-  --color-secondary: #D9CBA3;  /* Beige */
-  --color-accent: #736140;     /* Marrón oscuro */
-  --color-neutral: #c4891a;    /* Dorado medio */
-  --color-background: #F2EBDC; /* Crema */
-  --color-white: #ffffff;      /* Blanco puro */
-  --color-text-dark: #3a3a3a;  /* Gris oscuro para texto */
-}
+/* IMPORTACIÓN DEL SISTEMA DE COLORES CENTRALIZADO */
+@import '../../styles/colors.css';
 
-/* ============================================
-   ESTILOS BASE DEL BOTÓN
-   ============================================ */
+/* ESTILOS BASE DEL BOTÓN */
 .btn {
   /* Layout y posicionamiento */
   display: inline-flex;
@@ -39,9 +27,7 @@
   outline: none;
 }
 
-/* ============================================
-   TAMAÑOS DE BOTONES
-   ============================================ */
+/* TAMAÑOS DE BOTONES */
 
 /* Botón pequeño - Para acciones secundarias */
 .btn--small {
@@ -67,89 +53,85 @@
   min-height: 64px;
 }
 
-/* ============================================
-   VARIANTES DE BOTONES
-   ============================================ */
+/* VARIANTES DE BOTONES */
 
 /* BOTÓN PRIMARIO - Para acciones principales (CTAs) */
 .btn--primary {
   /* Estado inicial: Fondo tawny con texto blanco */
-  background: #cd853f;
-  color: #ffffff;
-  border: 2px solid #cd853f;
-  box-shadow: 0 6px 20px rgba(205, 133, 63, 0.3);
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  border: 2px solid var(--color-accent-hover);
+  box-shadow: var(--shadow-primary);
 }
 
 /* Efecto hover: Se invierte a fondo blanco con texto tawny */
 .btn--primary:hover {
   transform: translateY(-3px);           /* Elevación sutil */
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
-  background: #ffffff;
-  color: #cd853f;
-  border-color: #cd853f;
+  background: var(--color-white);
+  color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
 }
 
 /* Estado activo: Mantiene el estilo hover */
 .btn--primary:active {
   transform: translateY(-1px);           /* Menos elevación que hover */
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-  background: #ffffff;
-  color: #cd853f;
+  background: var(--color-white);
+  color: var(--color-accent-hover);
 }
 
 /* BOTÓN SECUNDARIO - Para acciones complementarias */
 .btn--secondary {
   /* Estado inicial: Fondo blanco con texto oscuro */
-  background: #ffffff;
-  color: #736140;
-  border: 2px solid #D9CBA3;
-  box-shadow: 0 4px 15px rgba(166, 151, 124, 0.15);
+  background: var(--color-white);
+  color: var(--color-neutral-dark);
+  border: 2px solid var(--color-secondary);
+  box-shadow: var(--shadow-secondary);
 }
 
 /* Efecto hover: Se transforma a fondo tawny */
 .btn--secondary:hover {
-  background: #cd853f;
-  color: #ffffff;
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(205, 133, 63, 0.25);
-  border-color: #cd853f;
+  box-shadow: var(--shadow-primary);
+  border-color: var(--color-accent-hover);
 }
 
 /* Estado activo: Mantiene el estilo hover */
 .btn--secondary:active {
   transform: translateY(-1px);
-  background: #cd853f;
-  color: #ffffff;
-  border-color: #cd853f;
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  border-color: var(--color-accent-hover);
 }
 
 /* BOTÓN OUTLINE - Para acciones en tarjetas/features */
 .btn--outline {
   /* Estado inicial: Fondo tawny con texto blanco */
-  background: #cd853f;
-  color: #ffffff;
-  border: 2px solid #cd853f;
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  border: 2px solid var(--color-accent-hover);
 }
 
 /* Efecto hover: Se invierte a fondo blanco con texto tawny */
 .btn--outline:hover {
-  background: #ffffff;
-  border-color: #cd853f;
-  color: #cd853f;
+  background: var(--color-white);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-hover);
   transform: translateY(-2px);
 }
 
 /* Estado activo: Mantiene el estilo hover */
 .btn--outline:active {
   transform: translateY(0);
-  background: #ffffff;
-  border-color: #cd853f;
-  color: #cd853f;
+  background: var(--color-white);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-hover);
 }
 
-/* ============================================
-   ESTADOS ESPECIALES
-   ============================================ */
+/* ESTADOS ESPECIALES */
 
 /* ESTADO DESHABILITADO - Para botones inactivos */
 .btn--disabled {
@@ -165,9 +147,7 @@
   box-shadow: none;
 }
 
-/* ============================================
-   DISEÑO RESPONSIVO
-   ============================================ */
+/* DISEÑO RESPONSIVO */
 
 /* TABLETS - Pantallas medianas (768px y menores) */
 @media (max-width: 768px) {
