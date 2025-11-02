@@ -1,0 +1,24 @@
+
+
+
+.custom-navbar {
+  background-color: #D9C179; 
+}
+
+
+.navbar-brand {
+  font-weight: bold;
+  font-style: italic;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 34px;
+  color: white;
+}
+
+.nav-link {
+  color: #e4dcdc;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
