@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 3rem 6rem;
-  gap: 3rem;
+  padding: 35px;
+  gap: 35px;
 }
 
 .book-cover img {
