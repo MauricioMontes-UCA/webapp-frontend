@@ -27,7 +27,7 @@ const Description = () => {
 
   return (
     <div className="descripcion-container">
-      {}
+      
       <div className="book-cover">
         <img src={portada} alt="Portada del libro" />
       </div>
@@ -53,7 +53,7 @@ const Description = () => {
 
         <p className="book-extra">Publicado en 1999 — 213 páginas</p>
 
-        {}
+        
         <div className="rating-section">
           <div className="stars">
             {[...Array(5)].map((_, index) => {
@@ -79,7 +79,7 @@ const Description = () => {
           <p className="rating-value">{rating.toFixed(1)} / 5</p>
         </div>
 
-        {}
+        
         <div className="review-section">
           <h3>Deja tu reseña</h3>
           <form onSubmit={handleReviewSubmit}>
@@ -96,7 +96,7 @@ const Description = () => {
             </button>
           </form>
 
-          {}
+          
           {reviews.length > 0 && (
             <div className="review-list">
               <h3>Reseñas de otros lectores:</h3>
