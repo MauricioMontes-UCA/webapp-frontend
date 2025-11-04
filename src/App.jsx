@@ -1,9 +1,15 @@
-import React from "react";
-import "./App.css";
-import Login from "./pages/Login/Login"; 
+import React from 'react'
+import Homepage from './pages/Home'
+import Login from './pages/Login/Login'
+import './App.css'
 
 function App() {
-  return <Login />
+  return (
+    <div className="app">
+      <Homepage />
+      <Login/>
+    </div>
+  )
 }
 
 export default App;

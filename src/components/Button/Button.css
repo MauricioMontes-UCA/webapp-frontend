@@ -1,27 +1,189 @@
+/* IMPORTACIÓN DEL SISTEMA DE COLORES CENTRALIZADO */
+@import '../../styles/colors.css';
+
+/* ESTILOS BASE DEL BOTÓN */
 .btn {
-  border: 3px solid transparent;
-  border-radius: 8px;
-  padding: 12px 20px;
-  width: 100%;
+  /* Layout y posicionamiento */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  
+  /* Bordes y forma */
+  border: none;
+  border-radius: 12px;
+  
+  /* Tipografía */
+  font-family: inherit;
   font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  text-align: center;
+  white-space: nowrap;
+  
+  /* Interacciones */
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.btn.primary {
-  background-color: var(--color-gold);
-  color: var(--color-white);
-  border-color: var(--color-gold);
-}
-
-.btn.primary:hover {
-  background-color: transparent;
-  color: var(--color-white);
-  border-color: var(--color-gold);
-}
-
-.btn.primary:focus {
   outline: none;
-  box-shadow: 0 0 0 0.2rem var(--color-gold);
+}
+
+/* TAMAÑOS DE BOTONES */
+
+/* Botón pequeño - Para acciones secundarias */
+.btn--small {
+  padding: 10px 20px;
+  font-size: 14px;
+  line-height: 20px;
+  min-height: 40px;
+}
+
+/* Botón mediano - Tamaño estándar por defecto */
+.btn--medium {
+  padding: 14px 28px;
+  font-size: 16px;
+  line-height: 24px;
+  min-height: 52px;
+}
+
+/* Botón grande - Para CTAs principales */
+.btn--large {
+  padding: 18px 36px;
+  font-size: 18px;
+  line-height: 28px;
+  min-height: 64px;
+}
+
+/* VARIANTES DE BOTONES */
+
+/* BOTÓN PRIMARIO - Para acciones principales (CTAs) */
+.btn--primary {
+  /* Estado inicial: Fondo tawny con texto blanco */
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  border: 2px solid var(--color-accent-hover);
+  box-shadow: var(--shadow-primary);
+}
+
+/* Efecto hover: Se invierte a fondo blanco con texto tawny */
+.btn--primary:hover {
+  transform: translateY(-3px);           /* Elevación sutil */
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+  background: var(--color-white);
+  color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+/* Estado activo: Mantiene el estilo hover */
+.btn--primary:active {
+  transform: translateY(-1px);           /* Menos elevación que hover */
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  background: var(--color-white);
+  color: var(--color-accent-hover);
+}
+
+/* BOTÓN SECUNDARIO - Para acciones complementarias */
+.btn--secondary {
+  /* Estado inicial: Fondo blanco con texto oscuro */
+  background: var(--color-white);
+  color: var(--color-neutral-dark);
+  border: 2px solid var(--color-secondary);
+  box-shadow: var(--shadow-secondary);
+}
+
+/* Efecto hover: Se transforma a fondo tawny */
+.btn--secondary:hover {
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-primary);
+  border-color: var(--color-accent-hover);
+}
+
+/* Estado activo: Mantiene el estilo hover */
+.btn--secondary:active {
+  transform: translateY(-1px);
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  border-color: var(--color-accent-hover);
+}
+
+/* BOTÓN OUTLINE - Para acciones en tarjetas/features */
+.btn--outline {
+  /* Estado inicial: Fondo tawny con texto blanco */
+  background: var(--color-accent-hover);
+  color: var(--color-text-inverse);
+  border: 2px solid var(--color-accent-hover);
+}
+
+/* Efecto hover: Se invierte a fondo blanco con texto tawny */
+.btn--outline:hover {
+  background: var(--color-white);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-hover);
+  transform: translateY(-2px);
+}
+
+/* Estado activo: Mantiene el estilo hover */
+.btn--outline:active {
+  transform: translateY(0);
+  background: var(--color-white);
+  border-color: var(--color-accent-hover);
+  color: var(--color-accent-hover);
+}
+
+/* ESTADOS ESPECIALES */
+
+/* ESTADO DESHABILITADO - Para botones inactivos */
+.btn--disabled {
+  opacity: 0.6;                          /* Reduce opacidad para indicar inactividad */
+  cursor: not-allowed;                   /* Cursor que indica no disponible */
+  transform: none !important;            /* Previene animaciones */
+  box-shadow: none !important;           /* Remueve sombras */
+}
+
+/* Previene efectos hover en botones deshabilitados */
+.btn--disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* DISEÑO RESPONSIVO */
+
+/* TABLETS - Pantallas medianas (768px y menores) */
+@media (max-width: 768px) {
+  /* Reduce tamaños para mejor adaptación en tablets */
+  .btn--large {
+    padding: 16px 32px;
+    font-size: 16px;
+    min-height: 56px;
+  }
+  
+  .btn--medium {
+    padding: 12px 24px;
+    font-size: 15px;
+    min-height: 48px;
+  }
+  
+  .btn--small {
+    padding: 8px 16px;
+    font-size: 13px;
+    min-height: 36px;
+  }
+}
+
+/* MÓVILES - Pantallas pequeñas (480px y menores) */
+@media (max-width: 480px) {
+  /* Ajustes adicionales para dispositivos móviles */
+  .btn--large {
+    padding: 14px 28px;
+    font-size: 15px;
+    min-height: 52px;
+  }
+  
+  .btn--medium {
+    padding: 10px 20px;
+    font-size: 14px;
+    min-height: 44px;
+  }
+  /* Nota: btn--small mantiene su tamaño de tablet en móviles */
 }

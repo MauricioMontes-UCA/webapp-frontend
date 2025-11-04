@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import logo from "../../assets/logo/logo.svg";
+import logo from '../../assets/logo.svg';
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
