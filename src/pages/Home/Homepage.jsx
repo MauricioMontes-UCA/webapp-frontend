@@ -1,13 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import FeatureCard from '../../components/FeatureCard';
 import logoAlt from '../../assets/logo-alt.svg';
 import './Homepage.css';
 
 const Homepage = () => {
+  const navigate = useNavigate();
+
   const handleGetStarted = () => {
     // Lógica para redirigir al registro o login
-    console.log('Navegando a registro...');
+    navigate('/login');
   };
 
   const handleQuickSearch = () => {
