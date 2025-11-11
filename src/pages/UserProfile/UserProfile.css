@@ -530,6 +530,7 @@
 
 .modal-footer {
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
   padding: 1.5rem 2rem;
   background-color: var(--color-background);
@@ -593,6 +594,49 @@
   color: var(--color-error);
   text-align: center;
   margin: 1.5rem 0 0 0;
+}
+
+/* Modal de éxito */
+.modal-success .modal-header {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-bottom-color: #4caf50;
+  justify-content: center;
+}
+
+.modal-success .modal-header h2 {
+  color: #2e7d32;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.success-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  background-color: #f1f8f4;
+  border-radius: 12px;
+  border: 2px solid #4caf50;
+}
+
+.success-message svg {
+  width: 64px;
+  height: 64px;
+  color: #4caf50;
+  background-color: white;
+  border-radius: 50%;
+  padding: 0.5rem;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.success-message p {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2e7d32;
+  text-align: center;
 }
 
 /* ============================================

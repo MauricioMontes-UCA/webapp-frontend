@@ -1,7 +1,5 @@
 webapp-frontend
 
-Este repositorio contiene el Front-End para el proyecto de Programación Web: "El Último Párrafo".
-
 Página de Perfil de Usuario
 
 Ubicación
@@ -11,44 +9,111 @@ Ubicación
   - src/pages/UserProfile/UserProfile.css
   - src/pages/UserProfile/index.js
 
-Funcionalidades:
+Cambios Realizados
 
-1. Información Personal Editable
-- Nombre de usuario (mínimo 3 caracteres)
-- Nombre completo
-- Correo electrónico (con validación)
-- Biografía
-- Avatar con inicial del usuario
-- Modo edición con validación en tiempo real
+1. Eliminación del campo Nombre Completo
+- Removí el campo fullName del estado del usuario
+- Eliminé el input de Nombre completo del formulario de edición
+- Quité la visualización del nombre completo en la vista de solo lectura
+- Ahora solo se muestra: nombre de usuario, correo electrónico y biografía
 
-2. Seguridad y Privacidad
-- Cambio de contraseña con validación (mínimo 8 caracteres)
-- Modal para cambiar contraseña
+2. Modal de Eliminación de Cuenta Mejorado
+- Reemplacé el alert por un modal personalizado de éxito
+- Diseño con colores verdes y ícono de verificación
+- Mensaje: Tu cuenta ha sido eliminada exitosamente
+- Redirección automática a la página principal (/) después de 3 segundos
+- Se agregó useNavigate de react-router-dom para la navegación
 
-3. Preferencias
-- Toggle switches para:
-  - Notificaciones por email
-  - Perfil público/privado
-  - Tema oscuro (próximamente)
+3. Ajustes de Diseño
+- Los botones del modal ahora usan justify-content: space-between
+- El botón Cancelar aparece más a la derecha
+- Modal de éxito con estilos en verde (modal-success)
 
-4. Gestión de Cuenta
-- Eliminación de cuenta
-- Modal de confirmación con advertencias
+Componentes Importados
+import { useNavigate } from "react-router-dom";
+import InputField from "../../components/InputField/InputField";
+import Button from "../../components/Button/Button";
 
-Componentes Utilizados:
-- InputField (src/components/InputField)
-- Button con variantes: primary, outline, danger (src/components/Button)
+Estados Principales
+const [userData, setUserData] = useState({
+  username: 'usuario_ejemplo',
+  email: 'usuario@example.com',
+  bio: 'Amante de la lectura y la literatura clásica.'
+});
+const [showDeleteModal, setShowDeleteModal] = useState(false);
+const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-Diseño:
-- Paleta de colores dorados del proyecto
-- Responsive (Desktop, Tablet, Mobile)
-- Animaciones y transiciones suaves
-- Sistema de modales
-
-Integración:
-Agregar en App.jsx:
+Integración en App.jsx
 import UserProfile from './pages/UserProfile'
 <Route path="/profile" element={<UserProfile />} />
 
-Nota: Las funcionalidades están simuladas sin backend. Usar console.log() y alert() para feedback.
+Estilos CSS Agregados
+- .modal-success - Estilos para el modal de éxito
+- .success-message - Contenedor del mensaje con ícono
+- Colores verdes para indicar éxito (#4caf50, #2e7d32)
 
+---
+
+Página de Catálogo de Libros
+
+Ubicación
+- Ruta: /main
+- Archivos:
+  - src/pages/MainPage/MainPage.jsx
+  - src/pages/MainPage/MainPage.css
+  - src/pages/MainPage/index.js
+
+Funcionalidades
+
+1. Integración con Google Books API
+- Búsqueda de libros por categoría
+- Obtención automática de información (título, autor, imagen, descripción)
+- Manejo de libros sin portada disponible
+
+2. Categorías de Libros
+- Fiction, Science, History, Technology
+- Business, Self-Help, Fantasy, Biography
+
+3. Sección de Nuevos Lanzamientos
+- Carousel con libros recientes
+- Navegación por flechas
+- Responsive
+
+4. Grid de Libros
+- Tarjetas con información de cada libro
+- Imagen de portada, título y autor
+- Botón para ver detalles (próximamente)
+
+5. Header de Navegación
+- Logo y nombre del sitio
+- Links a: Inicio, Catálogo, Mi Biblioteca, Búsqueda Avanzada
+- Menú de usuario con dropdown
+- Opciones: Mi Perfil, Mi Biblioteca, Configuración, Cerrar Sesión
+- Modal de confirmación para cerrar sesión
+- Menú hamburguesa para mobile
+
+Configuración de API
+
+Crear archivo .env en la raíz del proyecto:
+VITE_GOOGLE_BOOKS_API_KEY=tu_api_key_aqui
+
+El archivo .env ya está en .gitignore para no subir la API key a GitHub.
+
+Componentes Utilizados
+- Button (src/components/Button)
+- Header (src/components/Header)
+
+Integración en App.jsx
+import MainPage from './pages/MainPage'
+<Route path="/main" element={<MainPage />} />
+
+Estilos
+- Paleta de colores dorados del proyecto
+- Responsive (Desktop, Tablet, Mobile)
+- Grid adaptable según tamaño de pantalla
+- Animaciones y transiciones
+
+Notas
+- La búsqueda avanzada está deshabilitada (será implementada por otro miembro del equipo)
+- Las funcionalidades de detalle de libro serán agregadas con el backend
+- El carousel usa scroll horizontal nativo

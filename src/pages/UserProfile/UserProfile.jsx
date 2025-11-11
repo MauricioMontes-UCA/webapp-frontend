@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
@@ -6,17 +7,19 @@ import Button from "../../components/Button/Button";
 // import Footer from "../../components/Footer/Footer";
 
 const UserProfile = () => {
+  const navigate = useNavigate();
+  
   // Estados del perfil de usuario
   const [userData, setUserData] = useState({
     username: 'usuario_ejemplo',
     email: 'usuario@example.com',
-    fullName: 'Juan Pérez',
     bio: 'Amante de la lectura y la literatura clásica.'
   });
 
   const [editMode, setEditMode] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [errors, setErrors] = useState({});
 
   // Estado para el formulario de edición
@@ -108,8 +111,13 @@ const UserProfile = () => {
   const handleDeleteAccount = () => {
     console.log('Eliminando cuenta...');
     // Aquí iría la integración con backend
-    alert('Cuenta eliminada. Serás redirigido a la página principal.');
     setShowDeleteModal(false);
+    setShowSuccessModal(true);
+    
+    // Redirigir a la página principal después de 3 segundos
+    setTimeout(() => {
+      navigate('/');
+    }, 3000);
   };
 
   return (
@@ -169,13 +177,6 @@ const UserProfile = () => {
                     placeholder="Ingresa tu nombre de usuario"
                   />
                   <InputField
-                    label="Nombre completo"
-                    type="text"
-                    value={formData.fullName}
-                    onChange={(e) => handleInputChange('fullName', e.target.value)}
-                    placeholder="Ingresa tu nombre completo"
-                  />
-                  <InputField
                     label="Correo electrónico"
                     type="email"
                     value={formData.email}
@@ -214,10 +215,6 @@ const UserProfile = () => {
                   <div className="info-item">
                     <span className="info-label">Nombre de usuario:</span>
                     <span className="info-value">{userData.username}</span>
-                  </div>
-                  <div className="info-item">
-                    <span className="info-label">Nombre completo:</span>
-                    <span className="info-value">{userData.fullName}</span>
                   </div>
                   <div className="info-item">
                     <span className="info-label">Correo electrónico:</span>
@@ -471,6 +468,28 @@ const UserProfile = () => {
               >
                 Cancelar
               </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Éxito - Cuenta Eliminada */}
+      {showSuccessModal && (
+        <div className="modal-overlay">
+          <div className="modal-content modal-success" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>✓ Cuenta Eliminada</h2>
+            </div>
+            <div className="modal-body">
+              <div className="success-message">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                <p>Tu cuenta ha sido eliminada exitosamente.</p>
+              </div>
+              <p style={{ textAlign: 'center', color: 'var(--color-text-secondary)', marginTop: '1rem' }}>
+                Serás redirigido a la página principal en unos momentos...
+              </p>
             </div>
           </div>
         </div>
