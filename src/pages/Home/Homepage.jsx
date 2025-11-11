@@ -10,7 +10,7 @@ const Homepage = () => {
 
   const handleGetStarted = () => {
     // Lógica para redirigir al registro o login
-    navigate('/login');
+    navigate('/Signup');
   };
 
   const handleQuickSearch = () => {
