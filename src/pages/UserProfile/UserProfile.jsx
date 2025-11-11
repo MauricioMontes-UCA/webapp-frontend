@@ -11,6 +11,8 @@ const UserProfile = () => {
   
   // Estados del perfil de usuario
   const [userData, setUserData] = useState({
+    firstName: 'Juan',
+    lastName: 'Pérez',
     username: 'usuario_ejemplo',
     email: 'usuario@example.com',
     bio: 'Amante de la lectura y la literatura clásica.'
@@ -50,6 +52,18 @@ const UserProfile = () => {
   // Validar formulario de perfil
   const validateProfile = () => {
     const newErrors = {};
+
+    if (!formData.firstName) {
+      newErrors.firstName = 'El nombre es obligatorio';
+    } else if (formData.firstName.length < 2) {
+      newErrors.firstName = 'Debe tener al menos 2 caracteres';
+    }
+
+    if (!formData.lastName) {
+      newErrors.lastName = 'El apellido es obligatorio';
+    } else if (formData.lastName.length < 2) {
+      newErrors.lastName = 'Debe tener al menos 2 caracteres';
+    }
 
     if (!formData.username) {
       newErrors.username = 'El nombre de usuario es obligatorio';
@@ -169,6 +183,22 @@ const UserProfile = () => {
               {editMode ? (
                 <div className="edit-form">
                   <InputField
+                    label="Nombre"
+                    type="text"
+                    value={formData.firstName}
+                    onChange={(e) => handleInputChange('firstName', e.target.value)}
+                    error={errors.firstName}
+                    placeholder="Ingresa tu nombre"
+                  />
+                  <InputField
+                    label="Apellido"
+                    type="text"
+                    value={formData.lastName}
+                    onChange={(e) => handleInputChange('lastName', e.target.value)}
+                    error={errors.lastName}
+                    placeholder="Ingresa tu apellido"
+                  />
+                  <InputField
                     label="Nombre de usuario"
                     type="text"
                     value={formData.username}
@@ -212,6 +242,14 @@ const UserProfile = () => {
                 </div>
               ) : (
                 <div className="info-display">
+                  <div className="info-item">
+                    <span className="info-label">Nombre:</span>
+                    <span className="info-value">{userData.firstName}</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="info-label">Apellido:</span>
+                    <span className="info-value">{userData.lastName}</span>
+                  </div>
                   <div className="info-item">
                     <span className="info-label">Nombre de usuario:</span>
                     <span className="info-value">{userData.username}</span>
