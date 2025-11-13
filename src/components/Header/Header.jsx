@@ -46,7 +46,7 @@ const Header = () => {
         <nav className="header-nav">
           <Link to="/" className="nav-link">Inicio</Link>
           <Link to="/main" className="nav-link">Catálogo</Link>
-          <Link to="#" className="nav-link">Mi Biblioteca</Link>
+          <Link to="/my-library" className="nav-link">Mi Biblioteca</Link>
           <Link to="#" className="nav-link">Búsqueda Avanzada</Link>
         </nav>
 
@@ -68,7 +68,7 @@ const Header = () => {
                   </svg>
                   Mi Perfil
                 </Link>
-                <Link to="#" className="dropdown-item" onClick={() => setIsUserMenuOpen(false)}>
+                <Link to="/my-library" className="dropdown-item" onClick={() => setIsUserMenuOpen(false)}>
                   <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
                   </svg>
@@ -105,7 +105,7 @@ const Header = () => {
         <div className="mobile-menu">
           <Link to="/" className="mobile-link" onClick={toggleMenu}>Inicio</Link>
           <Link to="/main" className="mobile-link" onClick={toggleMenu}>Catálogo</Link>
-          <Link to="#" className="mobile-link" onClick={toggleMenu}>Mi Biblioteca</Link>
+          <Link to="/my-library" className="mobile-link" onClick={toggleMenu}>Mi Biblioteca</Link>
           <Link to="#" className="mobile-link" onClick={toggleMenu}>Búsqueda Avanzada</Link>
           <div className="mobile-divider"></div>
           <Link to="/profile" className="mobile-link" onClick={toggleMenu}>Mi Perfil</Link>
