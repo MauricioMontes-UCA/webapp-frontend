@@ -66,6 +66,19 @@
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
+  color: var(--color-white);
+}
+
+.nav-link:active {
+  color: var(--color-white);
+}
+
+.nav-link:visited {
+  color: var(--color-white);
+}
+
+.nav-link:focus {
+  color: var(--color-white);
 }
 
 /* Acciones del Header */
@@ -251,6 +264,14 @@
   background-color: var(--color-background);
   color: var(--color-accent);
   padding-left: 2.5rem;
+}
+
+.mobile-link:active {
+  color: var(--color-accent);
+}
+
+.mobile-link:visited {
+  color: var(--color-text-primary);
 }
 
 .mobile-link.logout {
