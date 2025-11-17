@@ -9,7 +9,8 @@ const MyLibrary = () => {
   const [stats, setStats] = useState({
     reading: 0,
     toRead: 0,
-    completed: 0
+    completed: 0,
+    favorites: 0
   });
 
   // URL base de la API - cambiar según configuración del backend
@@ -18,7 +19,8 @@ const MyLibrary = () => {
   const tabs = [
     { id: 'reading', name: 'Leyendo' },
     { id: 'toRead', name: 'Leer' },
-    { id: 'completed', name: 'Terminado' }
+    { id: 'completed', name: 'Terminado' },
+    { id: 'favorites', name: 'Favoritos' }
   ];
 
   // Cargar estadísticas de la biblioteca
@@ -84,6 +86,10 @@ const MyLibrary = () => {
       completed: {
         title: 'Aún no has completado ningún libro',
         message: 'Los libros que termines aparecerán aquí. ¡Sigue leyendo!'
+      },
+      favorites: {
+        title: 'No tienes favoritos aún',
+        message: 'Marca tus libros preferidos como favoritos para encontrarlos fácilmente.'
       }
     };
 
@@ -164,6 +170,10 @@ const MyLibrary = () => {
             <div className="stat-item">
               <span className="stat-number">{stats.completed}</span>
               <span className="stat-label">Completados</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-number">{stats.favorites}</span>
+              <span className="stat-label">Favoritos</span>
             </div>
           </div>
         </div>
