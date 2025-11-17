@@ -1,7 +1,0 @@
-function BookView() {
-    return (
-        <>
-            
-        </>
-    )
-}
