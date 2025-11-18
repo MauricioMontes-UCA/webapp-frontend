@@ -254,6 +254,14 @@
   box-shadow: var(--shadow-card);
 }
 
+.category-btn.active:active {
+  color: var(--color-white);
+}
+
+.category-btn.active:focus {
+  color: var(--color-white);
+}
+
 /* ============================================
    CATÁLOGO PRINCIPAL
    ============================================ */

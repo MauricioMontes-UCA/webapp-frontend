@@ -6,6 +6,7 @@ import Login from '../pages/Login/Login.jsx'
 import MainPage from '../pages/MainPage/MainPage.jsx'
 import UserProfile from '../pages/UserProfile/UserProfile.jsx'
 import Settings from '../pages/Settings/Settings.jsx'
+import MyLibrary from '../pages/MyLibrary/MyLibrary.jsx'
 
 import PrivateRoute from './PrivateRoute.jsx'
 
@@ -18,6 +19,7 @@ const AppRouter = () => {
         <Route path="/main" element={<MainPage />} />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/my-library" element={<MyLibrary />} />
       </Routes>
     </Router>
   )
