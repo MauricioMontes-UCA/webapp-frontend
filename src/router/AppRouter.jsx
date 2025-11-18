@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from "../pages/Home/Homepage.jsx"
 import Login from '../pages/Login/Login.jsx'
 import MainPage from '../pages/MainPage/MainPage.jsx'
+import UserProfile from '../pages/UserProfile/UserProfile.jsx'
 import PrivateRoute from './PrivateRoute.jsx'
 
 const AppRouter = () => {
@@ -13,6 +14,7 @@ const AppRouter = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/main" element={<MainPage />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </Router>
   )
