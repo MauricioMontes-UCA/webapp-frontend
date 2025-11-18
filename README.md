@@ -1,40 +1,47 @@
-# webapp-frontend
-Este repositorio contiene el Front-End para el proyecto de Programación Web: "El Último Párrafo".
+Página de Configuración (Settings)
 
-## Configuración - Página de Settings
+La aplicación incluye una página de ajustes donde el usuario puede personalizar su experiencia.
+Todas las preferencias se guardan en localStorage bajo la clave userSettings.
 
-Descripción:
-Página de configuración que permite personalizar la experiencia mediante preferencias guardadas en localStorage.
+Opciones Disponibles
+Preferencias de Visualización
 
-Funcionalidades Implementadas:
+Tamaño de fuente
+Opciones: small (14px), medium (16px), large (18px)
+Se aplica a toda la aplicación.
+Vista compacta
+Activa/desactiva un diseño con menos espacios.
 
-Preferencias de Visualización:
-1. Tamaño de Fuente - Pequeño (14px), Mediano (16px), Grande (18px)
-   - Afecta a toda la aplicación
-   - Se aplica inmediatamente
-   
-2. Vista Compacta - Toggle para reducir espacios y mostrar más contenido
+Animaciones
 
-3. Animaciones - Toggle para activar/desactivar animaciones de interfaz
+Permite habilitar o deshabilitar animaciones de la interfaz.
 
-Preferencias de Uso:
-4. Guardado Automático - Toggle para guardar progreso de lectura automáticamente
+Preferencias de Uso
 
-Características Técnicas:
-- Persistencia: Todas las preferencias se guardan en localStorage con la clave userSettings
-- Ruta: /settings
-- Acceso: Desde el Header, Menú usuario, Configuración
-- Colores: Usa el sistema centralizado (src/styles/colors.css)
+Guardado automático
 
-Estructura de Datos guardados:
-  fontSize: medium (small, medium, large)
-  autoSave: true (boolean)
-  compactView: false (boolean)
-  animations: true (boolean)
+Guarda el progreso de lectura sin intervención del usuario.
 
-Archivos Relacionados:
-- src/pages/Settings/Settings.jsx - Componente principal
-- src/pages/Settings/Settings.css - Estilos
-- src/components/Header/Header.jsx - Links actualizados
-- src/App.jsx - Ruta configurada
+Estructura guardada en localStorage
+{
+  "fontSize": "medium",
+  "autoSave": true,
+  "compactView": false,
+  "animations": true
+}
 
+Detalles Técnicos
+
+Ruta: /settings
+
+Acceso: Desde el Header → Menú de usuario → Configuración
+
+Persistencia: Uso de localStorage
+
+Estilos: Utiliza la paleta definida en src/styles/colors.css
+
+Archivos relacionados
+src/pages/Settings/Settings.jsx
+src/pages/Settings/Settings.css
+src/components/Header/Header.jsx
+src/App.jsx
