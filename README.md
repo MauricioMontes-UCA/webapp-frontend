@@ -50,7 +50,3 @@ Backend debe estar en: http://localhost:5000
 Para cambiar URL del backend, crear archivo .env:
 VITE_API_URL=http://tu-servidor:puerto/api
 
-PROYECTO ACADÉMICO
-
-Universidad Centroamericana José Simeón Cañas
-Programación Web
