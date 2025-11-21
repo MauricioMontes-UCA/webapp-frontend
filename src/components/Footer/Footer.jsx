@@ -1,6 +1,4 @@
-// Footer.jsx - Componente de pie de página
-// Este componente muestra información de copyright y enlaces útiles
-// Se puede colocar al final de la app para dar contexto y navegación adicional
+// Footer.jsx
 
 import React from 'react';
 
