@@ -1,0 +1,39 @@
+/* Footer.css - Estilos para el pie de página */
+
+/* Contenedor principal del footer */
+.footer {
+	width: 100%;
+	background-color: var(--color-primary, #b6983f); /* Usa variable o color por defecto */
+	color: var(--color-white, #fff);
+	padding: 24px 0 16px 0;
+	text-align: center;
+	box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+	margin-top: 40px;
+}
+
+/* Texto de copyright */
+.footer__copyright {
+	margin: 0 0 8px 0;
+	font-size: 1rem;
+	font-weight: 400;
+}
+
+/* Navegación de enlaces en el footer */
+.footer__nav {
+	display: flex;
+	justify-content: center;
+	gap: 24px;
+	margin-top: 8px;
+}
+
+/* Estilos para los enlaces del footer */
+.footer__link {
+	color: var(--color-white, #fff);
+	text-decoration: none;
+	font-weight: 500;
+	transition: color 0.2s;
+}
+.footer__link:hover {
+	color: var(--color-accent, #c38513);
+	text-decoration: underline;
+}
