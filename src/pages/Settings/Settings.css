@@ -1,11 +1,21 @@
 @import '../../styles/colors.css';
+/* Fondo externo más claro para la página de configuración */
+.settings-background-outer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: var(--color-background);
+}
 
 .settings-container {
   max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
   min-height: 100vh;
-  background-color: var(--color-background);
+background-color: var(--color-primary-light);
 }
 
 .settings-header {
@@ -192,7 +202,7 @@
 }
 
 .settings-save-button:hover {
-  background-color: var(--color-accent);
+  background-color: rgba(242, 235, 220, 0.95); /* similar a var(--color-background) pero con leve transparencia */
   box-shadow: var(--shadow-primary-hover);
 }
 
