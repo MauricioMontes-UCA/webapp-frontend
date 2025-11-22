@@ -192,15 +192,16 @@ const MainPage = () => {
         ) : (
           <div className="books-grid">
             {books.map((book) => (
-              <div key={book.id} className="book-card">
-                <div className="book-cover">
-                  <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
-                  <div className="book-overlay">
-                    <Button variant="primary" size="small">Ver Detalles</Button>
-                    <Button variant="outline" size="small">Agregar a Biblioteca</Button>
+              <div key={book.id} className="book-card book-card-horizontal">
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+                  <div className="book-cover">
+                    <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
+                  </div>
+                  <div className="book-actions-right" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
+                    <Button variant="outline" size="small">Ver Detalles</Button>
+                    <Button variant="primary" size="small">Agregar a Biblioteca</Button>
                   </div>
                 </div>
-                
                 <div className="book-info">
                   <h3 className="book-title">{book.volumeInfo?.title}</h3>
                   <p className="book-author">{getAuthors(book)}</p>
@@ -211,23 +212,25 @@ const MainPage = () => {
                     </p>
                   )}
                   
-                  {getRating(book) > 0 && (
-                    <div className="book-rating">
-                      <div className="stars">
-                        {[...Array(5)].map((_, i) => (
-                          <svg
-                            key={i}
-                            className={`star ${i < getRating(book) ? 'filled' : ''}`}
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                          >
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                          </svg>
-                        ))}
-                      </div>
-                      <span className="rating-value">{getRating(book).toFixed(1)}</span>
+                  <div className="book-rating">
+                    <div className="stars">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`star ${i < getRating(book) ? 'filled' : ''}`}
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                      ))}
                     </div>
-                  )}
+                    {getRating(book) > 0 ? (
+                      <span className="rating-value">{getRating(book).toFixed(1)}</span>
+                    ) : (
+                      <span className="rating-value">Sin calificación</span>
+                    )}
+                  </div>
                   
                   {book.volumeInfo?.description && (
                     <p className="book-description">
