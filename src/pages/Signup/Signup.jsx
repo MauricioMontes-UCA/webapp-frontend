@@ -4,7 +4,7 @@ import "../../styles/colors.css";
 import logo from "../../assets/logo-golden.svg";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
-import Checkbox from "../../components/Checkbox/Checkbox";
+import TermsConditions from "../../components/TermsConditions/TermsConditions";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -16,6 +16,7 @@ const Signup = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [errors, setErrors] = useState({});
   const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
 
   const validateSignup = () => {
     const newErrors = {};
@@ -54,6 +55,9 @@ const Signup = () => {
 
   return (
     <div className="signup">
+   
+    {showTerms && (<TermsConditions open={showTerms} close={() => setShowTerms(false)} onAccept={() => setTermsAccepted(true)}/>)}
+
       <div className="signup-card">
         <img src={logo} alt="El Último Párrafo" className="signup-logo" />
         <h1 className="signup-title">ÚNETE A EL ÚLTIMO PÁRRAFO</h1>
@@ -114,13 +118,9 @@ const Signup = () => {
           />
           {errors.confirmPassword && <p className="error-text">{errors.confirmPassword}</p>}
 
-          <div className="signup-options">
-            <Checkbox
-              label="Acepto los Términos y la Política de Privacidad"
-              checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
-            />
-          </div>
+          <p className="terms-open" onClick={() => setShowTerms(true)}>
+            Leer Términos y Condiciones
+          </p>
           {errors.termsAccepted && <p className="error-text">{errors.termsAccepted}</p>}
 
           <Button variant="primary" size="medium" onClick={handleSignup}>
@@ -128,7 +128,7 @@ const Signup = () => {
           </Button>
 
           {registerSuccess && (
-            <p className="success-text">¡Registro exitoso! Ya puedes iniciar sesión.</p>
+            <p className="success-text">¡Registro exitoso! Ya puedes iniciar sesión</p>
           )}
 
           <p className="signup-footer">

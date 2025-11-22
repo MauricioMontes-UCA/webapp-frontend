@@ -47,8 +47,17 @@
   flex-direction: column;
 }
 
-.signup-options {
-  margin: 1rem 0;
+.terms-open {
+  color: var(--color-accent);
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem; 
+  display: inline-block;
+  text-align: left;
+}
+
+.terms-open:hover {
+  text-decoration: underline;
 }
 
 .signup-footer {
