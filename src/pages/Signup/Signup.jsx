@@ -50,7 +50,10 @@ const Signup = () => {
     else if (!/\S+@\S+\.\S+/.test(email)) newErrors.email = "El formato del correo no es válido";
     
     if (!password) newErrors.password = "La contraseña es obligatoria";
-    else if (password.length < 8) newErrors.password = "Debe tener al menos 8 caracteres";
+    else if (password.length < 12) newErrors.password = "Debe tener al menos 12 caracteres";
+    else if (!/[A-Z]/.test(password)) newErrors.password = "Debe tener al menos una mayúscula";
+    else if (!/[a-z]/.test(password)) newErrors.password = "Debe tener al menos una minúscula";
+    else if (!/[#?!@$%^&*-]/.test(password)) newErrors.password = "Debe tener al menos un símbolo especial (#?!@$%^&*-).";
     
     if (!confirmPassword) newErrors.confirmPassword = "Debes confirmar tu contraseña";
     else if (confirmPassword !== password) newErrors.confirmPassword = "Las contraseñas no coinciden";
