@@ -10,6 +10,7 @@ import Settings from '../pages/Settings/Settings.jsx'
 import MyLibrary from '../pages/MyLibrary/MyLibrary.jsx'
 
 import PrivateRoute from './PrivateRoute.jsx'
+import PageResults from '../pages/SearchPage/PageResults.jsx'
 
 const AppRouter = () => {
   return (
@@ -22,6 +23,7 @@ const AppRouter = () => {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/my-library" element={<MyLibrary />} />
+        <Route path="/search" element={<PageResults />} />
       </Routes>
     </Router>
   )

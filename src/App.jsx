@@ -1,10 +1,9 @@
-import React from 'react'
-import AppRouter from './router/AppRouter'
-import './App.css'
-import Signup from './pages/Signup/Signup'
+import React from "react";
+import AppRouter from "./router/AppRouter";
+import "./App.css";
 
 function App() {
-  return <AppRouter />;    
+  return <AppRouter />;
 }
 
 export default App;
