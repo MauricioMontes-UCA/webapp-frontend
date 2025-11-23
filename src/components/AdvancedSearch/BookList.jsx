@@ -9,7 +9,25 @@ const BookList = ({ books, loading, error }) => {
     <ul>
       {books.map((book) => (
         <li key={book.id}>
-          <strong>{book.title}</strong> - {book.author} ({book.genre})
+          <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+            <img
+              src={book.cover}
+              alt={book.title}
+              style={{
+                width: "80px",
+                height: "110px",
+                objectFit: "cover",
+                borderRadius: "4px",
+              }}
+            />
+
+            <div>
+              <strong>{book.title}</strong>
+              <p>Autor: {book.author}</p>
+              <p>Páginas: {book.pages}</p>
+              <p>Progreso: {book.progress}%</p>
+            </div>
+          </div>
         </li>
       ))}
     </ul>
