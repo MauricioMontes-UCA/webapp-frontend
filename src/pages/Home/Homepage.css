@@ -1,6 +1,57 @@
+/* Modal de advertencia para funcionalidades restringidas */
+.homepage-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-modal {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  max-width: 90vw;
+  text-align: center;
+}
+
+.homepage-modal h3 {
+  margin-bottom: 1rem;
+}
+
+.homepage-modal p {
+  margin-bottom: 2rem;
+}
+
+.homepage-modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.homepage-modal-btn {
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.homepage-modal-btn.cancel {
+  background: #ccc;
+  color: #333;
+}
 /* Paleta de colores personalizada */
 :root {
-  --color-primary: #b6983f;
+  --color-primary: #a06a2b;
   --color-secondary: #D9CBA3;
   --color-accent: #c38513;
   --color-neutral: #A6977C;
@@ -74,6 +125,8 @@
   height: 100px;
 }
 
+/* El color de la letra de 'El Último Párrafo' es var(--color-accent) (#c38513),
+   el botón principal ahora es más café (#a06a2b) para combinar mejor. */
 .hero-title {
   font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 800;
