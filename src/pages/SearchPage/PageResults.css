@@ -1,3 +1,10 @@
+/* Fondo general para la página de resultados */
+body, .searchpage-bg {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #f5e9d7 0%, #e9e4f0 100%);
+  background-attachment: fixed;
+}
 /* Contenedor principal */
 .page-results {
   max-width: 800px;
