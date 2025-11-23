@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button';
 import FeatureCard from '../../components/FeatureCard';
@@ -7,29 +7,55 @@ import './Homepage.css';
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [pendingAction, setPendingAction] = useState(null);
 
   const handleGetStarted = () => {
-    // Lógica para redirigir al registro o login
     navigate('/Signup');
   };
 
+  // Modal logic for restricted actions
+  const showSignupModal = (action) => {
+    setPendingAction(() => action);
+    setShowModal(true);
+  };
+
+  const handleModalConfirm = () => {
+    setShowModal(false);
+    if (pendingAction) pendingAction();
+  };
+
+  const handleModalCancel = () => {
+    setShowModal(false);
+    setPendingAction(null);
+  };
+
   const handleQuickSearch = () => {
-    // Lógica para búsqueda rápida
-    console.log('Iniciando búsqueda rápida...');
+    showSignupModal(() => navigate('/Signup'));
   };
 
   const handleViewMyBooks = () => {
-    // Lógica para ver libros del usuario
-    console.log('Navegando a mis libros...');
+    showSignupModal(() => navigate('/Signup'));
   };
 
   const handleBrowseRecommendations = () => {
-    // Lógica para ver recomendaciones
-    console.log('Navegando a recomendaciones...');
+    showSignupModal(() => navigate('/Signup'));
   };
 
   return (
     <div className="homepage">
+      {showModal && (
+        <div className="homepage-modal-overlay">
+          <div className="homepage-modal">
+            <h3>¡Atención!</h3>
+            <p>Para disfrutar de nuestras funcionalidades debes registrarte o iniciar sesión con tu cuenta.</p>
+            <div className="homepage-modal-actions">
+              <button className="homepage-modal-btn" onClick={handleModalConfirm}>Continuar</button>
+              <button className="homepage-modal-btn cancel" onClick={handleModalCancel}>Cancelar</button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
