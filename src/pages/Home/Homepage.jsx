@@ -14,8 +14,7 @@ const Homepage = () => {
   };
 
   const handleQuickSearch = () => {
-    // Lógica para búsqueda rápida
-    console.log('Iniciando búsqueda rápida...');
+    navigate('/search');  // navegamos a página de búsqueda avanzada
   };
 
   const handleViewMyBooks = () => {

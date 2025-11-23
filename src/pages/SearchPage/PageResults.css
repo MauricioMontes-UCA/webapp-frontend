@@ -1,0 +1,110 @@
+/* Contenedor principal */
+.page-results {
+  max-width: 800px;
+  margin: 55px auto;
+  padding: 20px 35px;
+  background: var(--color-background);
+  box-shadow: var(--shadow-card);
+  border: 5px outset;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--color-text-primary);
+}
+
+/* Título */
+.page-results h1 {
+  color: var(--color-accent);
+  text-align: center;
+  margin-bottom: 16px;
+  text-shadow: var(--shadow-primary);
+}
+
+/* Formulario de búsqueda */
+.page-results form {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+/* Inputs del formulario */
+.page-results input[type="text"] {
+  width: 200px;
+  padding: 8px 16px;
+  border: 2px solid var(--color-secondary);
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  background-color: var(--color-white);
+  color: var(--color-text-primary);
+}
+
+.page-results input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-primary);
+}
+
+/* Botón de búsqueda */
+.page-results button {
+  background: var(--gradient-primary);
+  color: var(--color-text-inverse);
+  border: none;
+  padding: 10px 35px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: var(--shadow-primary);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+
+.page-results button:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow-primary-hover);
+}
+
+/* Botón deshabilitado */
+.page-results button:disabled {
+  background: var(--color-secondary-light);
+  cursor: not-allowed;
+  box-shadow: none;
+  color: var(--color-text-light);
+}
+
+/* Lista de libros */
+.page-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Elemento individual de libro */
+.page-results li {
+  background: var(--color-white);
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-secondary);
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.page-results li:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Texto dentro de cada libro */
+.page-results li strong {
+  color: var(--color-primary-dark);
+  font-size: 15px;
+}
+
+/* Estado de mensajes */
+.page-results p {
+  text-align: center;
+  font-style: italic;
+  color: var(--color-neutral-dark);
+  margin-top: 10px;
+}
