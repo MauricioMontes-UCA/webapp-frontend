@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import "../../styles/colors.css";
 import logo from "../../assets/logo-golden.svg";
@@ -6,7 +7,20 @@ import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import TermsConditions from "../../components/TermsConditions/TermsConditions";
 
+// Modal estilizado con colores de la web
+function SuccessModal({ open, message, redirectText }) {
+  if (!open) return null;
+  return (
+    <div className="success-modal-overlay">
+      <div className="success-modal-content">
+        <h2 className="success-modal-title">{message}</h2>
+        <p className="success-modal-redirect">{redirectText}</p>
+      </div>
+    </div>
+  );
+}
 const Signup = () => {
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
@@ -16,6 +30,7 @@ const Signup = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [errors, setErrors] = useState({});
   const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
 
   const validateSignup = () => {
@@ -50,6 +65,11 @@ const Signup = () => {
     setRegisterSuccess(false);
     if (validateSignup()) {
       setRegisterSuccess(true);
+      setShowSuccessModal(true);
+      setTimeout(() => {
+        setShowSuccessModal(false);
+        navigate('/main'); // Ajusta la ruta si tu catálogo está en otra ruta
+      }, 2000);
     }
   };
 
@@ -57,6 +77,7 @@ const Signup = () => {
     <div className="signup">
    
     {showTerms && (<TermsConditions open={showTerms} close={() => setShowTerms(false)} onAccept={() => setTermsAccepted(true)}/>)}
+    <SuccessModal open={showSuccessModal} message="Listo, tu cuenta se creó exitosamente" redirectText="Redirigiendo al catálogo de libros..." />
 
       <div className="signup-card">
         <img src={logo} alt="El Último Párrafo" className="signup-logo" />
@@ -127,9 +148,7 @@ const Signup = () => {
             Crear cuenta
           </Button>
 
-          {registerSuccess && (
-            <p className="success-text">¡Registro exitoso! Ya puedes iniciar sesión</p>
-          )}
+          {/* El mensaje de éxito ahora se muestra en un modal */}
 
           <p className="signup-footer">
             ¿Ya tienes cuenta? <a href="/login" className="signup-link">Inicia sesión aquí</a>
