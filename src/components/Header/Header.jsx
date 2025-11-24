@@ -47,7 +47,7 @@ const Header = () => {
           <Link to="/" className="nav-link">Inicio</Link>
           <Link to="/main" className="nav-link">Catálogo</Link>
           <Link to="/my-library" className="nav-link">Mi Biblioteca</Link>
-          <Link to="#" className="nav-link">Búsqueda Avanzada</Link>
+          <Link to="/search" className="nav-link">Búsqueda Avanzada</Link>
         </nav>
 
         {/* Menú de Usuario */}
@@ -106,7 +106,7 @@ const Header = () => {
           <Link to="/" className="mobile-link" onClick={toggleMenu}>Inicio</Link>
           <Link to="/main" className="mobile-link" onClick={toggleMenu}>Catálogo</Link>
           <Link to="/my-library" className="mobile-link" onClick={toggleMenu}>Mi Biblioteca</Link>
-          <Link to="#" className="mobile-link" onClick={toggleMenu}>Búsqueda Avanzada</Link>
+          <Link to="/search" className="mobile-link" onClick={toggleMenu}>Búsqueda Avanzada</Link>
           <div className="mobile-divider"></div>
           <Link to="/profile" className="mobile-link" onClick={toggleMenu}>Mi Perfil</Link>
           <Link to="/settings" className="mobile-link" onClick={toggleMenu}>Configuración</Link>

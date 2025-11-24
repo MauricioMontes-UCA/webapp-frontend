@@ -48,14 +48,15 @@ const Settings = () => {
 
   return (
     <>
+      <div className="settings-background-outer"></div>
       <Header />
       <div className="settings-container">
-      <div className="settings-header">
-        <h1>Configuración</h1>
-        <p>Personaliza tu experiencia en la aplicación</p>
-      </div>
+        <div className="settings-header">
+          <h1>Configuración</h1>
+          <p>Personaliza tu experiencia en la aplicación</p>
+        </div>
 
-      <div className="settings-content">
+        <div className="settings-content">
         {/* Sección de Preferencias de Visualización */}
         <div className="settings-section">
           <h2>Preferencias de Visualización</h2>
@@ -148,4 +149,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Settings

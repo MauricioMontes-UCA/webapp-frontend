@@ -8,6 +8,7 @@ const MainPage = () => {
   const [newReleases, setNewReleases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchValue, setSearchValue] = useState("");
 
   const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
   const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
@@ -93,28 +94,38 @@ const MainPage = () => {
             Explora miles de libros y encuentra historias que te inspirarán
           </p>
           
-          {/* Búsqueda - Diseño para que tu compañera lo implemente */}
+          {/* Búsqueda funcional */}
           <div className="search-bar">
-            <div className="search-input-wrapper">
-              <svg className="search-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-              </svg>
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Buscar por título, autor, género o ISBN..."
-                disabled
-              />
-            </div>
-            <Button 
-              variant="primary" 
-              type="button"
-              disabled
+            <form
+              style={{ display: 'flex', alignItems: 'center', width: '100%' }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (searchValue.trim()) {
+                  navigate(`/search?isbn=${encodeURIComponent(searchValue.trim())}`);
+                }
+              }}
             >
-              Buscar
-            </Button>
+              <div className="search-input-wrapper">
+                <svg className="search-icon" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                </svg>
+                <input
+                  type="text"
+                  className="search-input"
+                  placeholder="Buscar por título, autor, género o ISBN..."
+                  value={searchValue}
+                  onChange={e => setSearchValue(e.target.value)}
+                />
+              </div>
+              <Button 
+                variant="primary" 
+                type="submit"
+              >
+                Buscar
+              </Button>
+            </form>
           </div>
-          <p className="search-note">* Funcionalidad de búsqueda avanzada pendiente de implementación</p>
+          <p className="search-note">Puedes buscar por título, autor, género o ISBN</p>
         </div>
       </section>
 
@@ -192,15 +203,16 @@ const MainPage = () => {
         ) : (
           <div className="books-grid">
             {books.map((book) => (
-              <div key={book.id} className="book-card">
-                <div className="book-cover">
-                  <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
-                  <div className="book-overlay">
-                    <Button variant="primary" size="small">Ver Detalles</Button>
-                    <Button variant="outline" size="small">Agregar a Biblioteca</Button>
+              <div key={book.id} className="book-card book-card-horizontal">
+                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+                  <div className="book-cover">
+                    <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
+                  </div>
+                  <div className="book-actions-right" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
+                    <Button variant="outline" size="small">Ver Detalles</Button>
+                    <Button variant="primary" size="small">Agregar a Biblioteca</Button>
                   </div>
                 </div>
-                
                 <div className="book-info">
                   <h3 className="book-title">{book.volumeInfo?.title}</h3>
                   <p className="book-author">{getAuthors(book)}</p>
@@ -211,23 +223,25 @@ const MainPage = () => {
                     </p>
                   )}
                   
-                  {getRating(book) > 0 && (
-                    <div className="book-rating">
-                      <div className="stars">
-                        {[...Array(5)].map((_, i) => (
-                          <svg
-                            key={i}
-                            className={`star ${i < getRating(book) ? 'filled' : ''}`}
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                          >
-                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                          </svg>
-                        ))}
-                      </div>
-                      <span className="rating-value">{getRating(book).toFixed(1)}</span>
+                  <div className="book-rating">
+                    <div className="stars">
+                      {[...Array(5)].map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`star ${i < getRating(book) ? 'filled' : ''}`}
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                        >
+                          <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                      ))}
                     </div>
-                  )}
+                    {getRating(book) > 0 ? (
+                      <span className="rating-value">{getRating(book).toFixed(1)}</span>
+                    ) : (
+                      <span className="rating-value">Sin calificación</span>
+                    )}
+                  </div>
                   
                   {book.volumeInfo?.description && (
                     <p className="book-description">
