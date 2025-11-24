@@ -1,0 +1,26 @@
+.search-bar {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: #aaa;
+}
+.search-input {
+  width: 100%;
+  padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: transparent;
+  box-shadow: none;
+}
