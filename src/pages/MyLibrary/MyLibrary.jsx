@@ -10,7 +10,7 @@ const MyLibrary = () => {
     reading: 0,
     toRead: 0,
     completed: 0,
-    favorites: 0
+    // favoritos eliminado
   });
 
   // URL base de la API - cambiar según configuración del backend
@@ -19,8 +19,7 @@ const MyLibrary = () => {
   const tabs = [
     { id: 'reading', name: 'Leyendo' },
     { id: 'toRead', name: 'Leer' },
-    { id: 'completed', name: 'Terminado' },
-    { id: 'favorites', name: 'Favoritos' }
+    { id: 'completed', name: 'Terminado' }
   ];
 
   // Cargar estadísticas de la biblioteca
@@ -87,10 +86,7 @@ const MyLibrary = () => {
         title: 'Aún no has completado ningún libro',
         message: 'Los libros que termines aparecerán aquí. ¡Sigue leyendo!'
       },
-      favorites: {
-        title: 'No tienes favoritos aún',
-        message: 'Marca tus libros preferidos como favoritos para encontrarlos fácilmente.'
-      }
+      // favoritos eliminado
     };
 
     const state = messages[tab] || messages.reading;
@@ -171,10 +167,7 @@ const MyLibrary = () => {
               <span className="stat-number">{stats.completed}</span>
               <span className="stat-label">Completados</span>
             </div>
-            <div className="stat-item">
-              <span className="stat-number">{stats.favorites}</span>
-              <span className="stat-label">Favoritos</span>
-            </div>
+            {/* Favoritos eliminado */}
           </div>
         </div>
 
