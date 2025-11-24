@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
+import Button from "../../components/Button/Button.jsx";
 import "./Description.css";
-import portada from "../../assets/LasVentajas.jpg";
+import portada from "../../assets/Ventajasin.png";
+
 
 const Description = () => {
   const [rating, setRating] = useState(3.5);
@@ -26,8 +29,6 @@ const Description = () => {
   const hasHalfStar = rating % 1 >= 0.5;
 
   return (
-
-    <div id="fondo">
     <div className="descripcion-container">
       
       <div className="book-cover">
@@ -42,15 +43,7 @@ const Description = () => {
           Charlie es un adolescente introvertido y sensible que acaba de empezar
           la preparatoria. A través de cartas dirigidas a un amigo anónimo,
           narra su vida cotidiana, sus pensamientos más profundos y las
-          experiencias que lo marcan en su camino hacia la madurez. Tras la
-          muerte de su mejor amigo y con un pasado familiar complicado, Charlie
-          se siente solo y fuera de lugar, hasta que conoce a Patrick y Sam, dos
-          estudiantes mayores que lo acogen en su grupo y le muestran un mundo
-          nuevo lleno de música, fiestas, amistad y autodescubrimiento. A medida
-          que avanza el año, Charlie enfrenta temas como el amor, la pérdida, la
-          depresión, el abuso y la búsqueda de identidad, aprendiendo que ser
-          “invisible” puede protegerlo, pero también puede impedirle vivir
-          plenamente.
+          experiencias que lo marcan en su camino hacia la madurez.
         </p>
 
         <p className="book-extra">Publicado en 1999 — 213 páginas</p>
@@ -113,7 +106,6 @@ const Description = () => {
           )}
         </div>
       </div>
-    </div>
     </div>
   );
 };
