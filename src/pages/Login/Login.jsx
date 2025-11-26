@@ -4,20 +4,25 @@ import logo from '../../assets/logo-golden.svg';
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import { Link, useNavigate } from "react-router-dom";
+import API from "../../utils/api";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   // Estados del formulario
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const [errors, setErrors] = useState({})
   const [loginError, setLoginError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Validar campos del formulario
   const validateLogin = () => {
     const newErrors = {}
 
-    if (!identifier) newErrors.identifier = 'El nombre de usuario o correo es obligatorio'
+    if (!identifier) newErrors.identifier = 'El correo es obligatorio'
     if (!password) newErrors.password = 'La contraseña es obligatoria'
     else if (password.length < 8)
       newErrors.password = 'Debe tener al menos 8 caracteres'
@@ -27,31 +32,36 @@ const Login = () => {
   }
 
   // Lógica principal de inicio de sesión
-  const handleLogin = () => {
-    console.log('Intentando iniciar sesión...')
-    setLoginError('')
+  const handleLogin = async () => {
+    setLoginError('');
+    if (!validateLogin()) return;
 
-    if (validateLogin()) {
-      console.log('Usuario/correo:', identifier)
-      console.log('Contraseña:', password)
-      console.log('Recordar usuario:', remember)
+    setIsSubmitting(true);
 
-      //Aquí más adelante irá la integración real con backend
-      const userFound = false
+    try {
+      await API.post("/api/auth/login", {
+        email: identifier,
+        password: password
+      });
 
-      if (userFound) {
-        console.log('Inicio de sesión exitoso')
-      } else {
-        console.log('Error: credenciales inválidas')
-        setLoginError(
-          'El nombre de usuario, email o contraseña son incorrectos. ' +
-            'Vuelva a ingresar su información o restablezca la contraseña.'
-        )
-      }
-    } else {
-      console.log('Validación del formulario fallida')
+      navigate('/main');
     }
-  }
+
+    catch (err) {
+      if (err.response && err.response.data && err.response.data.errors) {
+        setLoginError(err.response.data.errors[0]);
+      }
+      else if (err.response && err.response.data && err.response.data.message) {
+        setLoginError(err.response.data.message);
+      }
+      else {
+        setLoginError("Error inesperado. Por favor, inténtelo de nuevo.")
+      }
+    }
+    finally {
+      setIsSubmitting(false)
+    }
+  };
 
   // Render principal
   return (
@@ -74,9 +84,9 @@ const Login = () => {
 
           <form className='login-form' onSubmit={(e) => e.preventDefault()}>
             <InputField
-              label='Nombre de Usuario o Email'
+              label='Correo electrónico'
               type='text'
-              placeholder='Digita tu nombre de usuario o Email'
+              placeholder='Digita tu correo electrónico'
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
             />
@@ -91,14 +101,15 @@ const Login = () => {
             />
             {errors.password && <p className='error-text'>{errors.password}</p>}
 
+            {/* No dio el tiempo a implementarlo en al API :( */}
             <div className='login-options'>
-              <Checkbox
+              {/* <Checkbox
                 label='Recordar usuario'
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
-              />
+              /> */}
               <a href='#' className='login-link'>
-                Cambiar contraseña
+                ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
               </a>
             </div>
 

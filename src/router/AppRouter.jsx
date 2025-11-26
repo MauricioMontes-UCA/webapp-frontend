@@ -14,6 +14,7 @@ import SearchBar from "../components/SearchBar/SearchBar.jsx";
 
 import PrivateRoute from "./PrivateRoute.jsx";
 import PageResults from "../pages/SearchPage/PageResults.jsx";
+import NotFoundPage from "../pages/NotFound/NotFound.jsx";
 
 const AppRouter = () => {
   return (
@@ -21,22 +22,16 @@ const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/main" element={<MainPage />} />
-        <Route path="/profile" element={<UserProfile />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/my-library" element={<MyLibrary />} />
+        <Route path="/register" element={<Signup />} />
         <Route path="/search" element={<PageResults />} />
-        <Route
-          path="/description"
-          element={
-            <>
-              <Header />
-              <SearchBar />
-              <BooksPage />
-            </>
-          }
-        />
+        <Route element={<PrivateRoute />}>
+          <Route path="/main" element={<MainPage />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/description" element={<BooksPage />}/>
+          <Route path="/my-library" element={<MyLibrary />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />}/>
       </Routes>
     </Router>
   );

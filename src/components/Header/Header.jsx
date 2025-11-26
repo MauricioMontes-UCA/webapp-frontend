@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.css';
 import logoAlt from '../../assets/logo-alt.svg';
+import API from '../../utils/api';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,9 +23,11 @@ const Header = () => {
     setIsUserMenuOpen(false);
   };
 
-  const confirmLogout = () => {
+  const confirmLogout = async () => {
     // Aquí iría la lógica de cerrar sesión
-    console.log('Cerrando sesión...');
+    await API.delete('/api/auth/logout')
+
+
     setShowLogoutModal(false);
     navigate('/login');
   };

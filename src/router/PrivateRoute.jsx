@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import axios from 'axios'
+import { Navigate, Outlet } from 'react-router-dom'
+import API from '../utils/api'
 
 const BASE_URI = import.meta.env.VITE_BASE_URI || 'http://localhost:5000'
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = () => {
   const [loading, setLoading] = useState(true)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
@@ -12,7 +12,7 @@ const PrivateRoute = ({ children }) => {
     let mounted = true
     const checkAuth = async () => {
       try {
-        const res = await axios.get(`${BASE_URI}/api/users/me`, { withCredentials: true })
+        const res = await API.get('/api/auth/')
         if (!mounted) return
         setIsAuthenticated(res.status === 200)
       }
@@ -35,7 +35,7 @@ const PrivateRoute = ({ children }) => {
     return null
   }
 
-  return isAuthenticated ? children : <Navigate to="/login" replace />
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />
 }
 
 // const PrivateRoute = ({ children }) => {

@@ -6,6 +6,7 @@ import logo from "../../assets/logo-golden.svg";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import TermsConditions from "../../components/TermsConditions/TermsConditions";
+import API from "../../utils/api";
 
 // Modal estilizado con colores de la web
 function SuccessModal({ open, message, redirectText }) {
@@ -29,7 +30,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [errors, setErrors] = useState({});
-  const [registerSuccess, setRegisterSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showTerms, setShowTerms] = useState(false);
 
@@ -64,16 +65,55 @@ const Signup = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSignup = () => {
-    setRegisterSuccess(false);
-    if (validateSignup()) {
-      setRegisterSuccess(true);
+  const handleSignup = async () => {
+    setErrors({});
+    if (!validateSignup()) return;
+
+    setIsSubmitting(true);
+
+    try {
+      const userData = {
+        first_name: firstName,
+        last_name: lastName,
+        username,
+        email,
+        password
+      };
+
+      await API.post("/api/users", userData);
+
       setShowSuccessModal(true);
       setTimeout(() => {
         setShowSuccessModal(false);
-        navigate('/main'); // Ajusta la ruta si tu catálogo está en otra ruta
+        navigate("/main");
       }, 2000);
     }
+    catch (err) {
+      const apiErrors = {};
+      if (err.response && err.response.data && err.response.data.errors) {
+        setLoginError(err.response.data.errors[0]);
+      }
+      else if (err.response && err.response.data && err.response.data.message) {
+        setLoginError(err.response.data.message);
+      }
+      else {
+        setLoginError("Error inesperado. Por favor, inténtelo de nuevo.")
+      }
+      setErrors(apiErrors);
+    }
+    finally {
+      setIsSubmitting(false);
+    }
+
+    // setIsSubmitting(false);
+    // if (validateSignup()) {
+    //   setIsSubmitting(true);
+    //   setShowSuccessModal(true);
+    //   setTimeout(() => {
+    //     setShowSuccessModal(false);
+    //     navigate('/main'); // Ajusta la ruta si tu catálogo está en otra ruta
+    //   }, 2000);
+    // }
   };
 
   return (
