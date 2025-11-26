@@ -11,12 +11,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
   
   // Estados del perfil de usuario
-  const [userData, setUserData] = useState({
-    username: '',
-    email: '',
-    // No ví que el usuario tiene bio XDDDD, se queda quemado xD
-    bio: 'Amante de la lectura y la literatura clásica.' 
-  });
+  const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
 
   const [editMode, setEditMode] = useState(false);
@@ -30,7 +25,6 @@ const UserProfile = () => {
 
   // Estado para cambio de contraseña
   const [passwordData, setPasswordData] = useState({
-    currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   });
@@ -46,6 +40,9 @@ const UserProfile = () => {
       } 
       catch (err) {
           console.error("Error al obtener los datos del usuario:", err)
+      }
+      finally {
+        setLoading(false)
       }
     };
 
@@ -88,13 +85,36 @@ const UserProfile = () => {
   };
 
   // Guardar cambios del perfil
-  const handleSaveProfile = () => {
-    if (validateProfile()) {
-      console.log('Guardando perfil:', formData);
-      setUserData({ ...formData });
+  const handleSaveProfile = async () => {
+    if (!validateProfile()) {
+      console.log(errors);
+    };
+    
+    try {
+      const payload = {
+        username: formData.username,
+        email: formData.email
+        // Si el usuario tuviera el campo para BIO....
+        // bio: formData.bio
+      };
+
+      const response = await API.patch('/api/users/me', payload);
+
+      setUserData(response.data);
+      setFormData(response.data);
       setEditMode(false);
-      // Aquí iría la integración con backend
       alert('Perfil actualizado exitosamente');
+    }
+    catch (err) {
+      if (err.response && err.response.data && err.response.data.errors) {
+        alert(err.response.data.errors[0]);
+      }
+      else if (err.response && err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
+      }
+      else {
+        alert("Error inesperado. Por favor, inténtelo de nuevo.")
+      }
     }
   };
 
@@ -106,42 +126,75 @@ const UserProfile = () => {
   };
 
   // Manejar cambio de contraseña
-  const handleChangePassword = () => {
-    if (!passwordData.currentPassword) {
-      alert('Ingresa tu contraseña actual');
-      return;
-    }
-    if (passwordData.newPassword.length < 8) {
-      alert('La nueva contraseña debe tener al menos 8 caracteres');
-      return;
-    }
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
+  const handleChangePassword = async () => {
+if (passwordData.newPassword !== passwordData.confirmPassword) {
       alert('Las contraseñas no coinciden');
       return;
     }
 
-    console.log('Cambiando contraseña...');
+    // console.log('Cambiando contraseña...');
     // Aquí iría la integración con backend
-    setShowPasswordModal(false);
-    setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-    alert('Contraseña cambiada exitosamente');
+
+    try {
+      const payload = { password: passwordData.newPassword }
+
+      await API.patch('/api/users/me', payload);
+
+      setShowPasswordModal(false);
+      setPasswordData({ newPassword: '', confirmPassword: '' });
+      alert('Contraseña cambiada exitosamente');
+    } 
+    catch (err) {
+      if (err.response && err.response.data && err.response.data.errors) {
+        alert(err.response.data.errors[0]);
+      }
+      else if (err.response && err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
+      }
+      else {
+        alert("Error inesperado. Por favor, inténtelo de nuevo.")
+      } 
+    }
   };
 
   // Manejar eliminación de cuenta
-  const handleDeleteAccount = () => {
+  const handleDeleteAccount = async () => {
     console.log('Eliminando cuenta...');
     // Aquí iría la integración con backend
-    setShowDeleteModal(false);
-    setShowSuccessModal(true);
-    
-    // Redirigir a la página principal después de 3 segundos
-    setTimeout(() => {
-      navigate('/');
-    }, 3000);
+
+    try {
+      await API.delete('/api/users/me')
+
+      setShowDeleteModal(false);
+      setShowSuccessModal(true);
+      
+      // Redirigir a la página principal después de 3 segundos
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    } 
+    catch (err) {
+      if (err.response && err.response.data && err.response.data.errors) {
+        alert(err.response.data.errors[0]);
+      }
+      else if (err.response && err.response.data && err.response.data.message) {
+        alert(err.response.data.message);
+      }
+      else {
+        alert("Error inesperado. Por favor, inténtelo de nuevo.")
+      } 
+    }
   };
 
   if (loading) {
-    return <div className="user-profile-page"><p>Cargando perfil...</p></div>
+    return (
+      <div className="user-profile-page">
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <p className="loading-text">Cargando perfil...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -396,16 +449,6 @@ const UserProfile = () => {
               </button>
             </div>
             <div className="modal-body">
-              <InputField
-                label="Contraseña Actual"
-                type="password"
-                value={passwordData.currentPassword}
-                onChange={(e) => setPasswordData(prev => ({
-                  ...prev,
-                  currentPassword: e.target.value
-                }))}
-                placeholder="Ingresa tu contraseña actual"
-              />
               <InputField
                 label="Nueva Contraseña"
                 type="password"

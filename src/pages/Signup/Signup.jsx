@@ -90,11 +90,14 @@ const Signup = () => {
     }
     catch (err) {
       const apiErrors = {};
-      if (err.response && err.response.data && err.response.data.message) {
-        apiErrors.form = err.response.data.message
+      if (err.response && err.response.data && err.response.data.errors) {
+        setLoginError(err.response.data.errors[0]);
+      }
+      else if (err.response && err.response.data && err.response.data.message) {
+        setLoginError(err.response.data.message);
       }
       else {
-        apiErrors.form = "Ocurrió un error inesperado. Por favor, intente de nuevo.";
+        setLoginError("Error inesperado. Por favor, inténtelo de nuevo.")
       }
       setErrors(apiErrors);
     }

@@ -4,7 +4,7 @@ import logo from '../../assets/logo-golden.svg';
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from "../../utils/api";
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
   const validateLogin = () => {
     const newErrors = {}
 
-    if (!identifier) newErrors.identifier = 'El nombre de usuario o correo es obligatorio'
+    if (!identifier) newErrors.identifier = 'El correo es obligatorio'
     if (!password) newErrors.password = 'La contraseña es obligatoria'
     else if (password.length < 8)
       newErrors.password = 'Debe tener al menos 8 caracteres'
@@ -48,7 +48,10 @@ const Login = () => {
     }
 
     catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
+      if (err.response && err.response.data && err.response.data.errors) {
+        setLoginError(err.response.data.errors[0]);
+      }
+      else if (err.response && err.response.data && err.response.data.message) {
         setLoginError(err.response.data.message);
       }
       else {
@@ -81,9 +84,9 @@ const Login = () => {
 
           <form className='login-form' onSubmit={(e) => e.preventDefault()}>
             <InputField
-              label='Nombre de Usuario o Email'
+              label='Correo electrónico'
               type='text'
-              placeholder='Digita tu nombre de usuario o Email'
+              placeholder='Digita tu correo electrónico'
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
             />
@@ -98,14 +101,15 @@ const Login = () => {
             />
             {errors.password && <p className='error-text'>{errors.password}</p>}
 
+            {/* No dio el tiempo a implementarlo en al API :( */}
             <div className='login-options'>
-              <Checkbox
+              {/* <Checkbox
                 label='Recordar usuario'
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
-              />
+              /> */}
               <a href='#' className='login-link'>
-                Cambiar contraseña
+                ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
               </a>
             </div>
 

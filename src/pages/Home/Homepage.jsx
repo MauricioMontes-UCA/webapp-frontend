@@ -11,7 +11,7 @@ const Homepage = () => {
   const [pendingAction, setPendingAction] = useState(null);
 
   const handleGetStarted = () => {
-    navigate('/Signup');
+    navigate('/register');
   };
 
   // Modal logic for restricted actions
@@ -31,15 +31,15 @@ const Homepage = () => {
   };
 
   const handleQuickSearch = () => {
-    showSignupModal(() => navigate('/Signup'));
+    showSignupModal(() => navigate('/register'));
   };
 
   const handleViewMyBooks = () => {
-    showSignupModal(() => navigate('/Signup'));
+    showSignupModal(() => navigate('/register'));
   };
 
   const handleBrowseRecommendations = () => {
-    showSignupModal(() => navigate('/Signup'));
+    showSignupModal(() => navigate('/register'));
   };
 
   return (
