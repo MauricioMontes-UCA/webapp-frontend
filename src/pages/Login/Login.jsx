@@ -4,14 +4,19 @@ import logo from '../../assets/logo-golden.svg';
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
 import Checkbox from "../../components/Checkbox/Checkbox";
+import { useNavigate } from "react-router-dom";
+import API from "../../utils/api";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   // Estados del formulario
   const [identifier, setIdentifier] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const [errors, setErrors] = useState({})
   const [loginError, setLoginError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Validar campos del formulario
   const validateLogin = () => {
@@ -27,31 +32,33 @@ const Login = () => {
   }
 
   // Lógica principal de inicio de sesión
-  const handleLogin = () => {
-    console.log('Intentando iniciar sesión...')
-    setLoginError('')
+  const handleLogin = async () => {
+    setLoginError('');
+    if (!validateLogin()) return;
 
-    if (validateLogin()) {
-      console.log('Usuario/correo:', identifier)
-      console.log('Contraseña:', password)
-      console.log('Recordar usuario:', remember)
+    setIsSubmitting(true);
 
-      //Aquí más adelante irá la integración real con backend
-      const userFound = false
+    try {
+      await API.post("/api/auth/login", {
+        email: identifier,
+        password: password
+      });
 
-      if (userFound) {
-        console.log('Inicio de sesión exitoso')
-      } else {
-        console.log('Error: credenciales inválidas')
-        setLoginError(
-          'El nombre de usuario, email o contraseña son incorrectos. ' +
-            'Vuelva a ingresar su información o restablezca la contraseña.'
-        )
-      }
-    } else {
-      console.log('Validación del formulario fallida')
+      navigate('/main');
     }
-  }
+
+    catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setLoginError(err.response.data.message);
+      }
+      else {
+        setLoginError("Error inesperado. Por favor, inténtelo de nuevo.")
+      }
+    }
+    finally {
+      setIsSubmitting(false)
+    }
+  };
 
   // Render principal
   return (

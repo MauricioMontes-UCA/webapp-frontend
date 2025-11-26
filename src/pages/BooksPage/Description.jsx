@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.jsx";
 import "./Description.css";
 import portada from "../../assets/Ventajasin.png";
+import Header from "../../components/Header/Header.jsx";
+import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 
 const Description = () => {
@@ -29,84 +31,88 @@ const Description = () => {
   const hasHalfStar = rating % 1 >= 0.5;
 
   return (
-    <div className="descripcion-container">
-      
-      <div className="book-cover">
-        <img src={portada} alt="Portada del libro" />
-      </div>
+    <>
+      <Header />
+      <SearchBar />
+      <div className="descripcion-container">
 
-      {/*con la api la informacion del libro cambiara*/}
-      <div className="book-info">
-        <h2 className="book-title">Las ventajas de ser un marginado</h2>
-        <p className="book-meta">Stephen Chbosky • Drama, Coming-of-age</p>
-        <p className="book-description">
-          Charlie es un adolescente introvertido y sensible que acaba de empezar
-          la preparatoria. A través de cartas dirigidas a un amigo anónimo,
-          narra su vida cotidiana, sus pensamientos más profundos y las
-          experiencias que lo marcan en su camino hacia la madurez.
-        </p>
+        <div className="book-cover">
+          <img src={portada} alt="Portada del libro" />
+        </div>
 
-        <p className="book-extra">Publicado en 1999 — 213 páginas</p>
+        {/*con la api la informacion del libro cambiara*/}
+        <div className="book-info">
+          <h2 className="book-title">Las ventajas de ser un marginado</h2>
+          <p className="book-meta">Stephen Chbosky • Drama, Coming-of-age</p>
+          <p className="book-description">
+            Charlie es un adolescente introvertido y sensible que acaba de empezar
+            la preparatoria. A través de cartas dirigidas a un amigo anónimo,
+            narra su vida cotidiana, sus pensamientos más profundos y las
+            experiencias que lo marcan en su camino hacia la madurez.
+          </p>
 
-        
-        <div className="rating-section">
-          <div className="stars">
-            {[...Array(5)].map((_, index) => {
-              if (index < filledStars) {
-                return <span key={index}>★</span>;
-              } else if (index === filledStars && hasHalfStar) {
-                return <span key={index}>☆</span>;
-              } else {
-                return <span key={index}>☆</span>;
-              }
-            })}
+          <p className="book-extra">Publicado en 1999 — 213 páginas</p>
+
+
+          <div className="rating-section">
+            <div className="stars">
+              {[...Array(5)].map((_, index) => {
+                if (index < filledStars) {
+                  return <span key={index}>★</span>;
+                } else if (index === filledStars && hasHalfStar) {
+                  return <span key={index}>☆</span>;
+                } else {
+                  return <span key={index}>☆</span>;
+                }
+              })}
+            </div>
+
+            <input
+              type="range"
+              min="0"
+              max="5"
+              step="0.1"
+              value={rating}
+              onChange={handleSliderChange}
+            />
+
+            <p className="rating-value">{rating.toFixed(1)} / 5</p>
           </div>
 
-          <input
-            type="range"
-            min="0"
-            max="5"
-            step="0.1"
-            value={rating}
-            onChange={handleSliderChange}
-          />
 
-          <p className="rating-value">{rating.toFixed(1)} / 5</p>
-        </div>
+          <div className="review-section">
+            <h3>Deja tu reseña</h3>
+            <form onSubmit={handleReviewSubmit}>
+              <textarea
+                value={review}
+                onChange={handleReviewChange}
+                placeholder="Escribe tu opinión sobre el libro..."
+                rows="4"
+                className="review-textarea"
+              ></textarea>
+              <br />
+              <button type="submit" className="review-button">
+                Enviar reseña
+              </button>
+            </form>
 
-        
-        <div className="review-section">
-          <h3>Deja tu reseña</h3>
-          <form onSubmit={handleReviewSubmit}>
-            <textarea
-              value={review}
-              onChange={handleReviewChange}
-              placeholder="Escribe tu opinión sobre el libro..."
-              rows="4"
-              className="review-textarea"
-            ></textarea>
-            <br />
-            <button type="submit" className="review-button">
-              Enviar reseña
-            </button>
-          </form>
 
-          
-          {reviews.length > 0 && (
-            <div className="review-list">
-              <h3>Reseñas de otros lectores:</h3>
-              <ul>
-                {reviews.map((rev, index) => (
-                  <li key={index} className="review-item">
-                    {rev}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+            {reviews.length > 0 && (
+              <div className="review-list">
+                <h3>Reseñas de otros lectores:</h3>
+                <ul>
+                  {reviews.map((rev, index) => (
+                    <li key={index} className="review-item">
+                      {rev}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

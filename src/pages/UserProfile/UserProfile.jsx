@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./UserProfile.css";
 import InputField from "../../components/InputField/InputField";
 import Button from "../../components/Button/Button";
+import API from "../../utils/api";
 // import Header from "../../components/Header/Header";
 // import Footer from "../../components/Footer/Footer";
 
@@ -11,10 +12,12 @@ const UserProfile = () => {
   
   // Estados del perfil de usuario
   const [userData, setUserData] = useState({
-    username: 'usuario_ejemplo',
-    email: 'usuario@example.com',
-    bio: 'Amante de la lectura y la literatura clásica.'
+    username: '',
+    email: '',
+    // No ví que el usuario tiene bio XDDDD, se queda quemado xD
+    bio: 'Amante de la lectura y la literatura clásica.' 
   });
+  const [loading, setLoading] = useState(true);
 
   const [editMode, setEditMode] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -31,6 +34,23 @@ const UserProfile = () => {
     newPassword: '',
     confirmPassword: ''
   });
+
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await API.get("/api/users/me");
+        const user = response.data;
+        setUserData(user);
+        setFormData(user);
+      } 
+      catch (err) {
+          console.error("Error al obtener los datos del usuario:", err)
+      }
+    };
+
+    fetchUserData();
+  }, [])
 
   // Manejar cambios en los campos del formulario
   const handleInputChange = (field, value) => {
@@ -119,6 +139,10 @@ const UserProfile = () => {
       navigate('/');
     }, 3000);
   };
+
+  if (loading) {
+    return <div className="user-profile-page"><p>Cargando perfil...</p></div>
+  }
 
   return (
     <div className="user-profile-page">
