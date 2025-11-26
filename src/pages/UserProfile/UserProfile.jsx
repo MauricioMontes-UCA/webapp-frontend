@@ -261,16 +261,6 @@ if (passwordData.newPassword !== passwordData.confirmPassword) {
                     error={errors.email}
                     placeholder="correo@example.com"
                   />
-                  <div className="input-group">
-                    <label className="input-label">Biografía</label>
-                    <textarea
-                      className="bio-textarea"
-                      value={formData.bio}
-                      onChange={(e) => handleInputChange('bio', e.target.value)}
-                      placeholder="Cuéntanos sobre tus gustos literarios..."
-                      rows="4"
-                    />
-                  </div>
 
                   <div className="form-actions">
                     <Button 
@@ -296,11 +286,7 @@ if (passwordData.newPassword !== passwordData.confirmPassword) {
                   <div className="info-item">
                     <span className="info-label">Correo electrónico:</span>
                     <span className="info-value">{userData.email}</span>
-                  </div>
-                  <div className="info-item">
-                    <span className="info-label">Biografía:</span>
-                    <span className="info-value">{userData.bio}</span>
-                  </div>
+                  </div> 
                 </div>
               )}
             </div>
