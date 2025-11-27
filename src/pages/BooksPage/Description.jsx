@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { getBookRatingStats, getUserBookRating, createRating, updateRating } from "../../utils/api";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button.jsx";
 import "./Description.css";
 import portada from "../../assets/Ventajasin.png";
@@ -7,10 +8,48 @@ import Header from "../../components/Header/Header.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 
-const Description = () => {
-  const [rating, setRating] = useState(3.5);
+
+
+
+function Description() {
+  // Obtener la googleId de la URL
+  const { googleId } = useParams();
+
+  const [rating, setRating] = useState(0);
+  const [averageRating, setAverageRating] = useState(0);
+  const [totalRatings, setTotalRatings] = useState(0);
   const [review, setReview] = useState("");
-  const [reviews, setReviews] = useState([]);
+  const [hasUserRating, setHasUserRating] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRating = async () => {
+      setLoading(true);
+      try {
+        // Obtener stats generales
+        const stats = await getBookRatingStats(googleId);
+        setAverageRating(stats.averageRating || 0);
+        setTotalRatings(stats.totalRatings || 0);
+        // Obtener rating del usuario autenticado
+        const userRating = await getUserBookRating(googleId);
+        if (userRating && userRating.rating !== undefined) {
+          setRating(userRating.rating);
+          setReview(userRating.review || "");
+          setHasUserRating(true);
+        } else {
+          setRating(0);
+          setReview("");
+          setHasUserRating(false);
+        }
+      } catch (err) {
+        setError("Error al cargar el rating");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRating();
+  }, [googleId]);
 
   const handleSliderChange = (e) => {
     setRating(parseFloat(e.target.value));
@@ -20,11 +59,34 @@ const Description = () => {
     setReview(e.target.value);
   };
 
-  const handleReviewSubmit = (e) => {
+  const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    if (review.trim() === "") return;
-    setReviews([...reviews, review]);
-    setReview("");
+    setError(null);
+    try {
+      if (hasUserRating) {
+        // Actualizar rating existente
+        await updateRating({ book_id: googleId, rating, comment: review });
+      } else {
+        // Crear nuevo rating
+        await createRating({ book_id: googleId, rating, comment: review });
+      }
+      // Refrescar datos
+      const stats = await getBookRatingStats(googleId);
+      setAverageRating(stats.averageRating || 0);
+      setTotalRatings(stats.totalRatings || 0);
+      const userRating = await getUserBookRating(googleId);
+      if (userRating && userRating.rating !== undefined) {
+        setRating(userRating.rating);
+        setReview(userRating.review || "");
+        setHasUserRating(true);
+      } else {
+        setRating(0);
+        setReview("");
+        setHasUserRating(false);
+      }
+    } catch (err) {
+      setError("Error al guardar el rating");
+    }
   };
 
   const filledStars = Math.floor(rating);
@@ -57,63 +119,52 @@ const Description = () => {
           <div className="rating-section">
             <div className="stars">
               {[...Array(5)].map((_, index) => {
-                if (index < filledStars) {
-                  return <span key={index}>★</span>;
-                } else if (index === filledStars && hasHalfStar) {
-                  return <span key={index}>☆</span>;
+                if (index < Math.floor(averageRating)) {
+                  return <span key={index} style={{ color: '#FFD700' }}>★</span>;
                 } else {
-                  return <span key={index}>☆</span>;
+                  return <span key={index} style={{ color: '#ccc' }}>★</span>;
                 }
               })}
             </div>
-
-            <input
-              type="range"
-              min="0"
-              max="5"
-              step="0.1"
-              value={rating}
-              onChange={handleSliderChange}
-            />
-
-            <p className="rating-value">{rating.toFixed(1)} / 5</p>
-          </div>
-
-
-          <div className="review-section">
-            <h3>Deja tu reseña</h3>
-            <form onSubmit={handleReviewSubmit}>
+            <p className="rating-value">
+              {averageRating.toFixed(1)} / 5 ({totalRatings} calificaciones)
+            </p>
+            <hr />
+            <form onSubmit={handleReviewSubmit} className="user-rating-form">
+              <label htmlFor="user-rating">Tu calificación:</label>
+              <input
+                id="user-rating"
+                type="range"
+                min="0"
+                max="5"
+                step="0.1"
+                value={rating}
+                onChange={handleSliderChange}
+                disabled={loading}
+              />
+              <span style={{ marginLeft: 8 }}>{rating.toFixed(1)} / 5</span>
               <textarea
                 value={review}
                 onChange={handleReviewChange}
                 placeholder="Escribe tu opinión sobre el libro..."
                 rows="4"
                 className="review-textarea"
+                disabled={loading}
+                style={{ display: 'block', width: '100%', marginTop: 8 }}
               ></textarea>
-              <br />
-              <button type="submit" className="review-button">
-                Enviar reseña
+              <button type="submit" className="review-button" disabled={loading} style={{ marginTop: 8 }}>
+                {hasUserRating ? 'Actualizar calificación' : 'Enviar calificación'}
               </button>
+              {error && <div style={{ color: 'red', marginTop: 8 }}>{error}</div>}
             </form>
-
-
-            {reviews.length > 0 && (
-              <div className="review-list">
-                <h3>Reseñas de otros lectores:</h3>
-                <ul>
-                  {reviews.map((rev, index) => (
-                    <li key={index} className="review-item">
-                      {rev}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
+
+
+          {/* Aquí podrías mostrar una lista de reseñas de otros usuarios si lo deseas */}
         </div>
       </div>
     </>
   );
-};
+}
 
 export default Description;

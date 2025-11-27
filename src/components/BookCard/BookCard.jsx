@@ -1,9 +1,13 @@
+
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import "./BookCard.css";
+
 
 function BookCard({ book, isFavorite = false, onToggleFavorite }) {
   const [favorite, setFavorite] = useState(isFavorite);
+  const navigate = useNavigate();
 
   const handleFavoriteClick = () => {
     setFavorite(!favorite);
@@ -12,8 +16,13 @@ function BookCard({ book, isFavorite = false, onToggleFavorite }) {
     }
   };
 
+  const handleCardClick = () => {
+    // book.id debe ser la ID de Google Books
+    navigate(`/books/${book.id}`);
+  };
+
   return (
-    <div className="book-card">
+    <div className="book-card" onClick={handleCardClick} style={{ cursor: 'pointer' }}>
       <div className="book-cover">
         <img src={book.cover} alt={book.title} />
       </div>
@@ -27,7 +36,7 @@ function BookCard({ book, isFavorite = false, onToggleFavorite }) {
           )}
         </div>
       </div>
-      <div className="book-actions">
+      <div className="book-actions" onClick={e => e.stopPropagation()}>
         <button
           className="action-btn favorite-btn"
           title={favorite ? "Quitar de favoritos" : "Agregar a favoritos"}
