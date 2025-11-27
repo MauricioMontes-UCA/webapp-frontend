@@ -1,17 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Button from "../../components/Button/Button.jsx";
 import "./Description.css";
 import portada from "../../assets/Ventajasin.png";
 import Header from "../../components/Header/Header.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
+import API from "../../utils/api.js";
 
 
 const Description = () => {
   const { googleId } = useParams()
+
+  const [book, setBook] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState({});
+
   const [rating, setRating] = useState(3.5);
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchBookData = async () => {
+      if (!googleId) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const response = await API.get(`/api/books/${googleId}`);
+        setBook(response.data);
+      } 
+      catch (err) {
+        const errorMessage = err.response?.data?.message || "Ocurrió un error al cargar los datos del libro";
+        setError(errorMessage);
+        console.error(errorMessage)
+      } 
+      finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookData();
+  }, [googleId]);
 
   const handleSliderChange = (e) => {
     setRating(parseFloat(e.target.value));
@@ -38,21 +69,18 @@ const Description = () => {
       <div className="descripcion-container">
 
         <div className="book-cover">
-          <img src={portada} alt="Portada del libro" />
+          <img src={book.imageLinks?.thumbnail} alt="Portada del libro" />
         </div>
 
         {/*con la api la informacion del libro cambiara*/}
         <div className="book-info">
-          <h2 className="book-title">Las ventajas de ser un marginado</h2>
-          <p className="book-meta">Stephen Chbosky • Drama, Coming-of-age</p>
-          <p className="book-description">
-            Charlie es un adolescente introvertido y sensible que acaba de empezar
-            la preparatoria. A través de cartas dirigidas a un amigo anónimo,
-            narra su vida cotidiana, sus pensamientos más profundos y las
-            experiencias que lo marcan en su camino hacia la madurez.
-          </p>
+          <h2 className="book-title">{book.title}</h2>
+          <p className="book-meta">{book.authors?.join(", ")} • {book.categories?.join(", ")}</p>
+          <p className="book-description" dangerouslySetInnerHTML={{ __html: book.description }}></p>
 
-          <p className="book-extra">Publicado en 1999 — 213 páginas</p>
+          <p className="book-extra">
+            Publicado en {book.publishedDate?.substring(0, 4)} — {book.pageCount} páginas
+          </p>
 
 
           <div className="rating-section">
