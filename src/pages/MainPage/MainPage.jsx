@@ -6,6 +6,7 @@ import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import API from '../../utils/api';
 import BookCard from '../../components/BookCard/BookCard';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
   const [books, setBooks] = useState([]);
@@ -14,6 +15,7 @@ const MainPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchResults, setSearchResults] = useState(null);
   const [allBookLists, setAllBookLists] = useState([])
+  const navigate = useNavigate()
 
   // Categorías de libros
   const categories = ['recent', 'bestseller', 'fiction', 'mystery', 'romance', 'science', 'history']
@@ -69,6 +71,10 @@ const MainPage = () => {
       setBooks([]);
     }
   };
+
+  const handleButtonClick = (bookId) => {
+    navigate(`/books/${bookId}`)
+  }
 
   // Obtener imagen del libro
   const getBookImage = (book) => {
@@ -128,7 +134,7 @@ const MainPage = () => {
                     <div className="book-cover-mini">
                       <img src={getBookImage(book)} alt={book.title} />
                       <div className="book-overlay-mini">
-                        <Button variant="outline" size="small">Ver Detalles</Button>
+                        <Button variant="outline" size="small" onClick={() => handleButtonClick(book.id)}>Ver Detalles</Button>
                       </div>
                     </div>
                     <div className="book-info-mini">

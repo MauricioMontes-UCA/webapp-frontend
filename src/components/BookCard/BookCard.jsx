@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function BookCard({ book, isFavorite = false, onToggleFavorite }) {
   const [favorite, setFavorite] = useState(isFavorite);
+  const navigate = useNavigate()
 
   const handleFavoriteClick = (e) => {
     e.stopPropagation()
@@ -15,7 +16,7 @@ function BookCard({ book, isFavorite = false, onToggleFavorite }) {
   };
 
   const handleCoverClick = () => {
-    useNavigate(`/description/${book.googleId}`);
+    navigate(`/description/${book.googleId}`);
   };
 
   return (
