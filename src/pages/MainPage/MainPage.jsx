@@ -76,6 +76,12 @@ const MainPage = () => {
     navigate(`/books/${bookId}`)
   }
 
+  const handleSearch = (query) => {
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
+  }
+
   // Obtener imagen del libro
   const getBookImage = (book) => {
     return book.imageLinks?.thumbnail || 
@@ -108,8 +114,8 @@ const MainPage = () => {
           </p>
           
           {/* Búsqueda funcional */}
-          <SearchBar onResults={setSearchResults} />
-          <p className="search-note">Puedes buscar por título, autor, género o ISBN</p>
+          <SearchBar onSearch={handleSearch} />
+          <p className="search-note">Puedes buscar por título, autor o género</p>
 
         </div>
       </section>

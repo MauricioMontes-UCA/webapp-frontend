@@ -2,27 +2,14 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import './SearchBar.css';
 
-const SearchBar = ({ onResults }) => {
-  const [searchValue, setSearchValue] = useState("");
-  const [loading, setLoading] = useState(false);
+const SearchBar = ({ onSearch }) => {
+  const [query, setQuery] = useState("");
 
-  const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
-  const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
-
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-    if (!searchValue.trim()) return;
-    setLoading(true);
-    try {
-      const response = await fetch(
-        `${BASE_URL}?q=${encodeURIComponent(searchValue.trim())}&maxResults=10&key=${API_KEY}`
-      );
-      const data = await response.json();
-      onResults(data.items || []);
-    } catch (err) {
-      onResults([]);
+    if (onSearch) {
+      onSearch(query)
     }
-    setLoading(false);
   };
 
   return (
@@ -35,14 +22,12 @@ const SearchBar = ({ onResults }) => {
           <input
             type="text"
             className="search-input"
-            placeholder="Buscar por título, autor, género o ISBN..."
-            value={searchValue}
-            onChange={e => setSearchValue(e.target.value)}
+            placeholder="Buscar por título, autor o género..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
-        <Button variant="primary" type="submit" disabled={loading}>
-          {loading ? 'Buscando...' : 'Buscar'}
-        </Button>
+        <Button variant="primary" type="submit">Buscar</Button>
       </form>
     </div>
   );
