@@ -1,0 +1,72 @@
+.book-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.book-cover img {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  margin-left: 0;
+  justify-content: flex-start;
+  /* align-items: flex-start; */
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+}
+.book-author {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+.book-meta {
+  font-size: 0.9rem;
+  color: #888;
+  margin-bottom: 16px;
+}
+.book-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 0;
+}
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 8px;
+  font-size: 1.3rem;
+  transition: transform 0.1s; */
+}
+.action-btn.favorite-btn:hover {
+  color: #e74c3c;
+}
+.action-btn.favorite-btn:hover {
+  transform: scale(1.2);
+}

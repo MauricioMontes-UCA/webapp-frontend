@@ -1,0 +1,123 @@
+@import "../../styles/colors.css";
+
+.login {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.login-left, .login-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.login-left {
+  background-color: var(--color-white);
+}
+
+.login-right {
+  background-color: var(--color-primary-dark);
+}
+
+.login-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.login-logo img {
+  width: clamp(100px, 20%, 150px);
+  margin-bottom: 1rem;
+}
+
+.login-logo h1 {
+  color: var(--color-primary-dark);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 3vw, 2.3rem);
+  letter-spacing: 0.05rem;
+}
+
+.login-logo h2 {
+  color: var(--color-gold);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  letter-spacing: 0.05rem;
+  text-align: center;
+}
+
+.login-card {
+  background-color: var(--color-white);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 25rem;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+}
+
+.login-title {
+  text-align: center;
+  color: var(--color-primary-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.login-subtitle {
+  text-align: center;
+  color: var(--color-accent);
+  margin-bottom: 2rem;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.login-form button {
+  display: block;    
+  margin: auto;     
+}
+
+.login-link {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+  color: var(--color-gold);
+}
+
+.error-text {
+  color: var(--color-error);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .login {
+    flex-direction: column;
+  }
+
+  .login-left,
+  .login-right {
+    width: 100%;
+    height: auto;
+    padding: 1.5rem;
+  }
+
+  .login-card {
+    width: 95%;
+    padding: 1.5rem;
+  }
+}

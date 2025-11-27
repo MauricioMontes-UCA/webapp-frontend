@@ -1,0 +1,132 @@
+/* SISTEMA DE COLORES REUTILIZABLE
+   
+   Este archivo centraliza toda la paleta de colores
+   para "El Último Párrafo" - Sistema de gestión de lecturas
+   
+   USAGE:
+   @import '../styles/colors.css';
+   
+   Luego usar: var(--color-primary), var(--color-accent), etc.
+*/
+
+:root {
+  /* COLORES PRINCIPALES DE LA MARCA */
+  
+  /* Dorados - Colores principales de la identidad */
+  --color-primary: #D9C179;          /* Dorado claro - Para elementos destacados */
+  --color-primary-light: #f7dfa5;    /* Dorado muy claro - Para fondos suaves */
+  --color-primary-dark: #c79435;     /* Dorado medio - Para hover states */
+  
+  /* Dorado intenso - Para títulos y elementos importantes */
+  --color-accent: #c38513;            /* Título principal "El Último Párrafo" */
+  --color-accent-hover: #cd853f;      /* Tawny - Para botones y elementos interactivos */
+  
+  /* COLORES NEUTROS Y DE SOPORTE */
+  
+  /* Beiges y cremas - Para fondos y elementos secundarios */
+  --color-secondary: #D9CBA3;        /* Beige principal - Para bordes y elementos suaves */
+  --color-secondary-light: #e8dcc4;  /* Beige claro - Para fondos de transición */
+  --color-background: #F2EBDC;       /* Crema - Fondo principal de tarjetas */
+  
+  /* Grises cálidos - Para textos y elementos neutros */
+  --color-neutral: #A6977C;          /* Gris cálido - Para elementos de soporte */
+  --color-neutral-dark: #736140;     /* Marrón - Para textos importantes */
+  
+  /* COLORES DE TEXTO */
+  
+  /* Textos principales */
+  --color-text-primary: #3a3a3a;     /* Gris oscuro - Texto principal */
+  --color-text-secondary: #666666;   /* Gris medio - Texto secundario */
+  --color-text-light: #999999;       /* Gris claro - Texto deshabilitado */
+  
+  /* Textos sobre fondos oscuros */
+  --color-text-inverse: #ffffff;     /* Blanco - Texto sobre fondos oscuros */
+  --color-text-inverse-secondary: #f5f5f5; /* Blanco suave - Texto secundario inverso */
+  
+  /* ============================================
+     COLORES DE ESTADO Y SISTEMA
+     ============================================ */
+  
+  /* Básicos del sistema */
+  --color-white: #ffffff;            /* Blanco puro - Fondos de tarjetas */
+  --color-black: #000000;            /* Negro puro - Para contraste máximo */
+  
+  /* Estados de interacción */
+  --color-hover-light: rgba(255, 255, 255, 0.1);  /* Overlay claro para hover */
+  --color-hover-dark: rgba(0, 0, 0, 0.1);         /* Overlay oscuro para hover */
+  
+  /* Transparencias útiles */
+  --color-overlay-light: rgba(217, 193, 121, 0.2); /* Overlay dorado claro */
+  --color-overlay-medium: rgba(166, 151, 124, 0.15); /* Overlay neutro */
+  --color-overlay-dark: rgba(115, 97, 64, 0.1);    /* Overlay oscuro */
+  
+  /* COLORES FUNCIONALES (ESTADOS) */
+  
+  /* Estados de éxito, error, advertencia, información */
+  --color-success: #22c55e;          /* Verde - Para estados de éxito */
+  --color-success-light: #dcfce7;    /* Verde claro - Fondo de éxito */
+  
+  --color-error: #ef4444;            /* Rojo - Para estados de error */
+  --color-error-light: #fef2f2;      /* Rojo claro - Fondo de error */
+  
+  --color-warning: #f59e0b;          /* Amarillo - Para advertencias */
+  --color-warning-light: #fffbeb;    /* Amarillo claro - Fondo de advertencia */
+  
+  --color-info: #3b82f6;             /* Azul - Para información */
+  --color-info-light: #eff6ff;       /* Azul claro - Fondo de información */
+  
+  /* SOMBRAS PRECONFIGURADAS */
+  
+  /* Sombras con colores de la paleta */
+  --shadow-primary: 0 6px 20px rgba(199, 148, 53, 0.3);    /* Sombra dorada */
+  --shadow-primary-hover: 0 10px 30px rgba(199, 148, 53, 0.4); /* Sombra dorada hover */
+  --shadow-secondary: 0 4px 15px rgba(166, 151, 124, 0.15); /* Sombra neutra */
+  --shadow-card: 0 10px 35px rgba(115, 97, 64, 0.12);      /* Sombra de tarjeta */
+  --shadow-card-hover: 0 20px 50px rgba(115, 97, 64, 0.18); /* Sombra de tarjeta hover */
+  
+  /* DEGRADADOS PRECONFIGURADOS */
+  
+  /* Degradados de la marca */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  --gradient-background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-secondary-light) 100%);
+  --gradient-cta: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-secondary-light) 50%, #a06c3f 100%);
+  
+  /* Degradados radiales para efectos de fondo */
+  --gradient-overlay-1: radial-gradient(circle at 20% 80%, var(--color-overlay-light) 0%, transparent 50%);
+  --gradient-overlay-2: radial-gradient(circle at 80% 20%, rgba(217, 203, 163, 0.15) 0%, transparent 50%);
+  --gradient-overlay-3: radial-gradient(circle at 40% 40%, var(--color-overlay-dark) 0%, transparent 50%);
+}
+
+/* UTILIDADES DE COLORES */
+
+/* Clases de utilidad para aplicar colores rápidamente */
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-accent { color: var(--color-accent); }
+.text-inverse { color: var(--color-text-inverse); }
+
+.bg-primary { background-color: var(--color-primary); }
+.bg-secondary { background-color: var(--color-secondary); }
+.bg-accent { background-color: var(--color-accent); }
+.bg-white { background-color: var(--color-white); }
+
+.border-primary { border-color: var(--color-primary); }
+.border-secondary { border-color: var(--color-secondary); }
+.border-accent { border-color: var(--color-accent); }
+
+
+
+
+/* ============================================
+   MODO OSCURO (FUTURO)
+   ============================================ */
+
+/* Preparado para implementar modo oscuro en el futuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Aquí se pueden definir los colores para modo oscuro */
+    /* --color-background: #1a1a1a; */
+    /* --color-text-primary: #ffffff; */
+    /* etc... */
+  }
+}

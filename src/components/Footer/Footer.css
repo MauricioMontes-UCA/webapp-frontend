@@ -1,0 +1,16 @@
+/* Footer.css - Estilos simples para el componente Footer */
+
+.footer {
+	width: 100%;
+	background-color: var(--color-primary, #b6983f);
+	color: var(--color-white, #fff);
+	padding: 24px 0 16px 0;
+	text-align: center;
+	margin-top: 40px;
+}
+
+.footer__copyright {
+	margin: 0;
+	font-size: 1rem;
+	font-weight: 400;
+}
