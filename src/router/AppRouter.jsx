@@ -23,12 +23,12 @@ const AppRouter = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-        <Route path="/search" element={<PageResults />} />
         <Route element={<PrivateRoute />}>
+          <Route path="/search" element={<PageResults />} />
           <Route path="/main" element={<MainPage />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/description" element={<BooksPage />}/>
+          <Route path="/description/:googleId" element={<BooksPage />}/>
           <Route path="/my-library" element={<MyLibrary />} />
         </Route>
         <Route path="*" element={<NotFoundPage />}/>

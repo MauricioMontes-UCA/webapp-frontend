@@ -4,6 +4,9 @@ import './MainPage.css';
 import Button from '../../components/Button/Button';
 import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar/SearchBar';
+import API from '../../utils/api';
+import BookCard from '../../components/BookCard/BookCard';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
   const [books, setBooks] = useState([]);
@@ -11,29 +14,22 @@ const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchResults, setSearchResults] = useState(null);
-
-  const API_KEY = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
-  const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
+  const [allBookLists, setAllBookLists] = useState([])
+  const navigate = useNavigate()
 
   // Categorías de libros
-  const categories = [
-    { id: 'all', name: 'Todos', query: 'bestseller' },
-    { id: 'fiction', name: 'Ficción', query: 'fiction' },
-    { id: 'mystery', name: 'Misterio', query: 'mystery' },
-    { id: 'romance', name: 'Romance', query: 'romance' },
-    { id: 'science', name: 'Ciencia', query: 'science' },
-    { id: 'history', name: 'Historia', query: 'history' }
-  ];
+  const categories = ['recent', 'bestseller', 'fiction', 'mystery', 'romance', 'science', 'history']
 
   // Función para obtener libros de Google Books
-  const fetchBooks = async (query = 'bestseller', maxResults = 12) => {
+  const fetchBooks = async (
+    // query = 'bestseller', maxResults = 12
+  ) => {
     try {
-      const response = await fetch(
-        `${BASE_URL}?q=${query}&maxResults=${maxResults}&orderBy=newest&key=${API_KEY}`
-      );
-      const data = await response.json();
-      return data.items || [];
-    } catch (error) {
+      const response = await API.get("/api/books/")
+      const lists = response.data.lists
+      return lists || [];
+    } 
+    catch (error) {
       console.error('Error al obtener libros:', error);
       return [];
     }
@@ -43,44 +39,65 @@ const MainPage = () => {
   useEffect(() => {
     const loadInitialBooks = async () => {
       setLoading(true);
-      const [mainBooks, releases] = await Promise.all([
-        fetchBooks('bestseller', 12),
-        fetchBooks('new+releases', 8)
-      ]);
-      console.log('Libros principales cargados:', mainBooks.length);
-      console.log('Nuevos lanzamientos:', releases.length);
-      setBooks(mainBooks);
-      setNewReleases(releases);
+
+      const fetchedLists = await fetchBooks();
+      setAllBookLists(fetchedLists);
+
+      const mainBookList = fetchedLists.find(list => list.subject === 'bestseller')
+      const releasesList = fetchedLists.find(list => list.subject === 'recent')
+
+      if (mainBookList) {
+        setBooks(mainBookList.items)
+      }
+      if (releasesList) {
+        setNewReleases(releasesList.items)
+      }
+      
       setLoading(false);
     };
     loadInitialBooks();
   }, []);
 
   // Filtrar por categoría
-  const handleCategoryChange = async (categoryId) => {
-    setSelectedCategory(categoryId);
-    setLoading(true);
-    const category = categories.find(cat => cat.id === categoryId);
-    const results = await fetchBooks(category.query, 12);
-    setBooks(results);
-    setLoading(false);
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+
+    const listForCategory = allBookLists.find(list => list.subject === category)
+    
+    if (listForCategory) {
+      setBooks(listForCategory.items);
+    }
+    else {
+      setBooks([]);
+    }
   };
+
+  const handleButtonClick = (bookId) => {
+    navigate(`/books/${bookId}`)
+  }
+
+  const handleSearch = (query) => {
+    if (query.trim()) {
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
+  }
 
   // Obtener imagen del libro
   const getBookImage = (book) => {
-    return book.volumeInfo?.imageLinks?.thumbnail || 
-           book.volumeInfo?.imageLinks?.smallThumbnail ||
+    return book.imageLinks?.thumbnail || 
+           book.imageLinks?.smallThumbnail ||
            'https://via.placeholder.com/128x192/D9C179/ffffff?text=Sin+Portada';
   };
 
   // Obtener autores
   const getAuthors = (book) => {
-    return book.volumeInfo?.authors?.join(', ') || 'Autor desconocido';
+    return book.authors?.join(', ') || 'Autor desconocido';
   };
 
   // Obtener rating
   const getRating = (book) => {
-    return book.volumeInfo?.averageRating || 0;
+    // TODO: Falta ver cómo obtener un avgRating por cada libro
+    return book.averageRating || 0;
   };
 
   return (
@@ -97,8 +114,8 @@ const MainPage = () => {
           </p>
           
           {/* Búsqueda funcional */}
-          <SearchBar onResults={setSearchResults} />
-          <p className="search-note">Puedes buscar por título, autor, género o ISBN</p>
+          <SearchBar onSearch={handleSearch} />
+          <p className="search-note">Puedes buscar por título, autor o género</p>
 
         </div>
       </section>
@@ -121,13 +138,13 @@ const MainPage = () => {
                 {newReleases.map((book) => (
                   <div key={book.id} className="book-card-mini">
                     <div className="book-cover-mini">
-                      <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
+                      <img src={getBookImage(book)} alt={book.title} />
                       <div className="book-overlay-mini">
-                        <Button variant="outline" size="small">Ver Detalles</Button>
+                        <Button variant="outline" size="small" onClick={() => handleButtonClick(book.id)}>Ver Detalles</Button>
                       </div>
                     </div>
                     <div className="book-info-mini">
-                      <h4 className="book-title-mini">{book.volumeInfo?.title}</h4>
+                      <h4 className="book-title-mini">{book.title}</h4>
                       <p className="book-author-mini">{getAuthors(book)}</p>
                     </div>
                   </div>
@@ -142,11 +159,11 @@ const MainPage = () => {
         <div className="category-filters">
           {categories.map((category) => (
             <button
-              key={category.id}
-              className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
-              onClick={() => handleCategoryChange(category.id)}
+              key={category}
+              className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+              onClick={() => handleCategoryChange(category)}
             >
-              {category.name}
+              {category.charAt(0).toUpperCase() + category.slice(1)}
             </button>
           ))}
         </div>
@@ -177,23 +194,39 @@ const MainPage = () => {
         ) : (
           <div className="books-grid">
             {books.map((book) => (
+              <BookCard
+                  key={book.id}
+                  book={{
+                    id: book.id,
+                    googleId: book.id,
+                    cover: getBookImage(book),
+                    title: book.title,
+                    author: getAuthors(book),
+                    pages: book.pageCount || 0
+                  }}
+              />
+            ))
+            
+            /* {books.map((book) => (
               <div key={book.id} className="book-card book-card-horizontal">
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
                   <div className="book-cover">
-                    <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
+                    <img src={getBookImage(book)} alt={book.title} />
                   </div>
+
                   <div className="book-actions-right" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
                     <Button variant="outline" size="small">Ver Detalles</Button>
                     <Button variant="primary" size="small">Agregar a Biblioteca</Button>
                   </div>
+                  
                 </div>
                 <div className="book-info">
                   <h3 className="book-title">{book.volumeInfo?.title}</h3>
                   <p className="book-author">{getAuthors(book)}</p>
                   
-                  {book.volumeInfo?.publishedDate && (
+                  {book.publishedDate && (
                     <p className="book-year">
-                      {new Date(book.volumeInfo.publishedDate).getFullYear()}
+                      {new Date(book.publishedDate).getFullYear()}
                     </p>
                   )}
                   
@@ -217,14 +250,14 @@ const MainPage = () => {
                     )}
                   </div>
                   
-                  {book.volumeInfo?.description && (
+                  {book.description && (
                     <p className="book-description">
-                      {book.volumeInfo.description.substring(0, 120)}...
+                      {book.description.substring(0, 120)}...
                     </p>
                   )}
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         )}
       </section>
@@ -233,3 +266,28 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
+
+// "id","title": "authors": [
+// 						"Claud Cockburn"
+// 					],
+// 					"publisher": "London : Sidgwick and Jackson",
+// 					"publishedDate": "1972",
+// 					"description": "The heros, clean cut and upper-class, the heroines melting and for the most part pure.",
+// 					"industryIdentifiers": [
+// 						{
+// 							"type": "OTHER",
+// 							"identifier": "UOM:39015066050611"
+// 						}
+// 					],
+// 					"pageCount": 208,
+// 					"categories": [
+// 						"Literary Criticism"
+// 					],
+// 					"maturityRating": "NOT_MATURE",
+// 					"imageLinks": {
+// 						"smallThumbnail": "http://books.google.com/books/content?id=5TJaAAAAMAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api",
+// 						"thumbnail": "http://books.google.com/books/content?id=5TJaAAAAMAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api"
+// 					},
+// 					"language": "en"
+// 				},

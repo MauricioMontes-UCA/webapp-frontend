@@ -108,9 +108,9 @@ const Login = () => {
                 checked={remember}
                 onChange={(e) => setRemember(e.target.checked)}
               /> */}
-              <a href='#' className='login-link'>
+              <p className='login-link'>
                 ¿No tienes una cuenta? <Link to="/register">Regístrate</Link>
-              </a>
+              </p>
             </div>
 
             <Button

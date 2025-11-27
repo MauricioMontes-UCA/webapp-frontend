@@ -19,9 +19,9 @@ const SearchForm = ({ query, onChange, onSubmit, loading }) => {
       />
       <input
         type="text"
-        name="genre"
+        name="subject"
         placeholder="Género"
-        value={query.genre}
+        value={query.subject}
         onChange={onChange}
       />
       <button type="submit" disabled={loading}>
