@@ -1,7 +1,8 @@
 .book-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  background: #000;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 16px;
@@ -9,17 +10,20 @@
 }
 
 .book-cover img {
-  width: 80px;
-  height: 120px;
+  width: 120px;
+  height: 180px;
   object-fit: cover;
   border-radius: 4px;
+  margin-bottom: 12px;
 }
 .book-info {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   flex: 1;
-  margin-left: 16px;
-  justify-content: space-between;
-  align-items: flex-start;
+  margin-left: 0;
+  justify-content: flex-start;
+  /* align-items: flex-start; */
 }
 
 .book-details {
@@ -28,7 +32,7 @@
 }
 
 .book-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
   margin: 0 0 4px 0;
 }
@@ -40,22 +44,27 @@
 .book-meta {
   font-size: 0.9rem;
   color: #888;
+  margin-bottom: 16px;
 }
 .book-actions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 16px;
+  margin-left: 0;
 }
 .action-btn {
   background: none;
   border: none;
   cursor: pointer;
-  margin-bottom: 8px;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 8px;
   font-size: 1.3rem;
-  transition: transform 0.1s;
+  transition: transform 0.1s; */
 }
-.action-btn.favorite-btn {
+.action-btn.favorite-btn:hover {
   color: #e74c3c;
 }
 .action-btn.favorite-btn:hover {

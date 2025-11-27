@@ -5,6 +5,7 @@ import Button from '../../components/Button/Button';
 import Header from '../../components/Header/Header';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import API from '../../utils/api';
+import BookCard from '../../components/BookCard/BookCard';
 
 const MainPage = () => {
   const [books, setBooks] = useState([]);
@@ -125,13 +126,13 @@ const MainPage = () => {
                 {newReleases.map((book) => (
                   <div key={book.id} className="book-card-mini">
                     <div className="book-cover-mini">
-                      <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
+                      <img src={getBookImage(book)} alt={book.title} />
                       <div className="book-overlay-mini">
                         <Button variant="outline" size="small">Ver Detalles</Button>
                       </div>
                     </div>
                     <div className="book-info-mini">
-                      <h4 className="book-title-mini">{book.volumeInfo?.title}</h4>
+                      <h4 className="book-title-mini">{book.title}</h4>
                       <p className="book-author-mini">{getAuthors(book)}</p>
                     </div>
                   </div>
@@ -181,23 +182,39 @@ const MainPage = () => {
         ) : (
           <div className="books-grid">
             {books.map((book) => (
+              <BookCard
+                  key={book.id}
+                  book={{
+                    id: book.id,
+                    googleId: book.id,
+                    cover: getBookImage(book),
+                    title: book.title,
+                    author: getAuthors(book),
+                    pages: book.pageCount || 0
+                  }}
+              />
+            ))
+            
+            /* {books.map((book) => (
               <div key={book.id} className="book-card book-card-horizontal">
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
                   <div className="book-cover">
-                    <img src={getBookImage(book)} alt={book.volumeInfo?.title} />
+                    <img src={getBookImage(book)} alt={book.title} />
                   </div>
+
                   <div className="book-actions-right" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginLeft: '1rem', marginTop: '0.5rem' }}>
                     <Button variant="outline" size="small">Ver Detalles</Button>
                     <Button variant="primary" size="small">Agregar a Biblioteca</Button>
                   </div>
+                  
                 </div>
                 <div className="book-info">
                   <h3 className="book-title">{book.volumeInfo?.title}</h3>
                   <p className="book-author">{getAuthors(book)}</p>
                   
-                  {book.volumeInfo?.publishedDate && (
+                  {book.publishedDate && (
                     <p className="book-year">
-                      {new Date(book.volumeInfo.publishedDate).getFullYear()}
+                      {new Date(book.publishedDate).getFullYear()}
                     </p>
                   )}
                   
@@ -221,14 +238,14 @@ const MainPage = () => {
                     )}
                   </div>
                   
-                  {book.volumeInfo?.description && (
+                  {book.description && (
                     <p className="book-description">
-                      {book.volumeInfo.description.substring(0, 120)}...
+                      {book.description.substring(0, 120)}...
                     </p>
                   )}
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         )}
       </section>
