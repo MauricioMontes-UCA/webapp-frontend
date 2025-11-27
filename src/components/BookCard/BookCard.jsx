@@ -16,7 +16,7 @@ function BookCard({ book, isFavorite = false, onToggleFavorite }) {
   };
 
   const handleCoverClick = () => {
-    navigate(`/description/${book.googleId}`);
+    navigate(`/books/${book.googleId}`);
   };
 
   return (
