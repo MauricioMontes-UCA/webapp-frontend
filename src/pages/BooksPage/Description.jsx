@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Button from "../../components/Button/Button.jsx";
 import "./Description.css";
 import portada from "../../assets/Ventajasin.png";
@@ -8,6 +8,7 @@ import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 
 
 const Description = () => {
+  const { googleId } = useParams()
   const [rating, setRating] = useState(3.5);
   const [review, setReview] = useState("");
   const [reviews, setReviews] = useState([]);

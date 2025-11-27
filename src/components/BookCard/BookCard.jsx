@@ -1,22 +1,29 @@
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import "./BookCard.css";
+import { useNavigate } from "react-router-dom";
 
 function BookCard({ book, isFavorite = false, onToggleFavorite }) {
   const [favorite, setFavorite] = useState(isFavorite);
 
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation()
     setFavorite(!favorite);
     if (onToggleFavorite) {
       onToggleFavorite(book.id, !favorite);
     }
   };
 
+  const handleCoverClick = () => {
+    useNavigate(`/description/${book.googleId}`);
+  };
+
   return (
     <div className="book-card">
-      <div className="book-cover">
+      <div className="book-cover" onClick={handleCoverClick}>
         <img src={book.cover} alt={book.title} />
       </div>
+
       <div className="book-info">
         <h3 className="book-title">{book.title}</h3>
         <p className="book-author">{book.author}</p>
@@ -27,6 +34,7 @@ function BookCard({ book, isFavorite = false, onToggleFavorite }) {
           )}
         </div>
       </div>
+
       <div className="book-actions">
         <button
           className="action-btn favorite-btn"
